@@ -89,7 +89,7 @@ $expression = new expressions();
 
 
 
-        <script src="jQuery/fonctions.js"></script>
+        <!--<script src="jQuery/fonctions.js"></script>-->
         <!--<script>var Fonction = new Fonction();</script>-->
         <script src="jQuery/vertical-tabs.js"></script>
 
