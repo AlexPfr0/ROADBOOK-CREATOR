@@ -85,37 +85,37 @@ $expression = new expressions();
         <!--<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500&family=Orbitron:wght@500;600;700;900&display=swap" rel="stylesheet">--> 
         
 
-        <link rel="stylesheet" href="jQuery/colorPicker/la_color_picker.css">
+        <link rel="stylesheet" href="javascript/colorPicker/la_color_picker.css">
 
 
 
         <!--<script src="jQuery/fonctions.js"></script>-->
         <!--<script>var Fonction = new Fonction();</script>-->
-        <script src="jQuery/vertical-tabs.js"></script>
+        <script src="javascript/vertical-tabs.js"></script>
 
-        <script src="jQuery/RBK.js"></script>
+        <script src="javascript/RBK.js"></script>
         <script>var oRBK = new RBK();</script>
         
-        <script src="jQuery/pictogramme.js"></script>
+        <script src="javascript/pictogramme.js"></script>
         <script>var oPictogramme = new Pictogramme();</script>
 
-        <script src="jQuery/ElementTable.js"></script>
+        <script src="javascript/ElementTable.js"></script>
         <script>var elementTable = new elementTable();</script>
 
-        <script src="jQuery/ConstruireRoadbook.js"></script>
+        <script src="javascript/ConstruireRoadbook.js"></script>
         <script>var construireRoadbook = new construireRoadbook();</script>
 
 
-        <script src="jQuery/calculerDistances.js"></script>
+        <script src="javascript/calculerDistances.js"></script>
         <!-- La fonction calculerDistance() peut prendre un paramètre 
         pour régler ne nb de chiffres après la virgule. Par défaut : 3 -->
 
         <script>var calculerDistance = new calculerDistance(<?= $reglage->decimal ?>);</script>
 
-        <script src="jQuery/Evenements.js"></script>
+        <script src="javascript/Evenements.js"></script>
         <script>var evenement = new Evenements();</script>
 
-        <script src="jQuery/ActionCookies.js"></script>
+        <script src="javascript/ActionCookies.js"></script>
         <script>actionCookies = new ActionCookie();</script>
         
         <script src="langages/<?= $reglage->langage ?>.js"></script>
@@ -127,8 +127,8 @@ $expression = new expressions();
         <link rel="stylesheet" href="css/tableau_parametres.css" type="text/css" />
         <link rel="stylesheet" href="css/choix_liste_cat.css" type="text/css" />
 
-        <script src="jQuery/dropzone/dropzone.js"></script>
-        <link rel="stylesheet" href="jQuery/dropzone/dropzone.css" type="text/css" />
+        <script src="javascript/dropzone/dropzone.js"></script>
+        <link rel="stylesheet" href="javascript/dropzone/dropzone.css" type="text/css" />
 
         <title>ROADBOOK CREATOR - by Alex</title>
         <link href="images/logoRBC.png" rel="shortcut icon" type="image/x-icon" />
@@ -377,7 +377,7 @@ $expression = new expressions();
                             <div class="panel">
                                 <h3><?= $expression->PARAMETRES ?><a href="" title="<?= $expression->doit_rafraichir ?>" class="glyphicon glyphicon-refresh refresh"></a></h3>
                                 <? include 'includes/tableau_parametres.inc'; ?>
-                                <script src="jQuery/colorPicker/color_picker-mbA.js"></script>
+                                <script src="javascript/colorPicker/color_picker-mbA.js"></script>
                             </div>
                         </div>
                         <div id="onglet-editeur" class="tab">
