@@ -1,0 +1,22 @@
+/*Style du tableau des paramètres*/
+
+#parametres{
+    width: 100%;
+}
+
+#parametres .descriptions{
+    width: 66%;
+    padding: 3px 5px;
+    text-align: right;    
+}
+
+.section{
+    background-color: #34495e;
+    color: #fff;
+}
+
+.refresh{
+    margin-left: 15px;
+    margin-right: 5px;
+}
+

@@ -1,0 +1,56 @@
+/*Style des onglets /!\ aux modifications*/
+
+
+.tab {display: none;}
+.tabs ul {
+    float: left;
+    margin-right: 30px;
+    margin-top: 15px
+}
+.tabs ul > li {list-style: none;}
+.tabs ul > li a {
+    text-decoration: none;
+    padding: 10px;
+    width: 250px;
+    color: #bdc3c7;
+    display: inline-block;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Bai Jamjuree', sans-serif; 
+    font-size: 20px
+}
+.tabs ul > li a:hover {
+    background-color: #446aa3;
+    border-bottom: 1px solid #000;
+    color:white;
+}
+.tabs ul > li a.active {
+    background-color: #446aa3;
+    color: #fff;
+    font-style: italic}
+
+.wrap {
+    background-color: #fff;
+    padding: 30px;
+    margin: 150px auto;
+    width: 1000px;
+}
+
+.panel{
+    height: 800px;
+    overflow: auto; 
+    margin-top: 15px;
+    margin-right: 15px
+
+}
+.panel h3{
+    text-align: left; 
+}
+.panel img{
+    width: 75px;
+}
+
+.glyphicon{
+    margin-right: 20px
+}

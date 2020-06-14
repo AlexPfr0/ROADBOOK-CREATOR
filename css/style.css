@@ -1,0 +1,422 @@
+/*Style princial de la page*/
+
+
+/*Police du site. En local pour ne pas le télécharger à chaque chargement
+de la page et optimiser l'affichage.*/
+@font-face {
+    font-family: "Bai Jamjuree";
+    src:url("https://roadbook.alexp.fr/css/baijam.woff2");
+}
+
+body{
+    background-color: #ecf0f1;
+    font-family: 'Bai Jamjuree', sans-serif;
+
+}
+
+/*Contenant les pages du roadbook*/
+#feuille-roadbook, #roadbook-imprimable{
+    *border : black 1px #666;
+    width: 800px;
+    border-spacing: 0px;
+    font-family: 'Bai Jamjuree', sans-serif;
+    border-collapse: separate;
+    background-color: #fff;
+    /*float: right;*/
+
+}
+
+/*Input du nom du roadbook*/
+#nom_roadbook{
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-weight: bold;
+}
+
+/*Colonnes du milieu du roadbook*/
+.milieuG{
+    border-right: 1px #666 dashed;
+    border-bottom: 0px;
+    border-top : 0px;
+}
+.milieuD{
+    border-left: 1px #666 dashed;
+    border-bottom: 0px;
+    border-top : 0px;
+}
+
+/*<hr /> dans les panels des onglets*/
+.panel-separateur{
+    width: 200px;
+    border-color: #34495e;
+    border-width: 3px
+}
+
+
+.panel{
+    border: 0;
+    border-top: 10px #e74c3c solid;
+}
+
+.panel h3{
+    padding: 5px 20px
+}
+
+td{
+    border: #666 1px solid;
+    text-align: center;
+
+}
+
+.tabs{
+    border: 1px #2c3e50 solid;
+    background-color: #34495e
+}
+
+.entete td{
+    background-color: #666;
+    color : #fff;
+
+}
+
+.kilometrage{
+    width : 125px;
+}
+
+.num_etape{
+    font-size: 12px; 
+    background-color: #666;
+    color :#fff;
+    font-weight: bold;
+    width: 20px;
+    height: 23.7px
+}
+
+.d_restante{
+    font-size: 12px;
+}
+
+.d_parcourue{
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #ECF0F1;
+}
+
+.d_inter{
+    font-size: 30px;
+    font-weight: bold;
+
+}
+
+.direction{
+    width: 100px;
+
+}
+
+.direction-image{
+    height : 81px
+}
+
+.commentaires{
+    width: 150px;
+    vertical-align: top;
+
+
+}
+
+td.commentaire{
+    padding : 2px;
+    vertical-align: middle;
+}
+
+.editable{
+    /*width: 95%;*/
+    height: 50px;
+
+    padding: 2px;
+    margin: 0px auto;
+    max-height: 75px
+}
+.editable:focus{
+    border: 3px #e67e22 dotted;
+}
+
+
+
+.milieu{
+    width: 25px;
+}
+
+.ligne_vide_H, .ligne_vide_B{
+    border: none; 
+    background-color: #ecf0f1;
+    font-size: 0.7em;
+}
+
+.titre_site{
+    font-family: 'Bai Jamjuree', sans-serif; 
+    padding : 15px 50px 15px 100px;
+    /*padding-left: 100px;*/
+    margin: 10px auto;
+    background-color: #446aa3;
+    color: white;
+    border: 5px solid #7f8c8d;
+    border-width: 5px 0;
+    background-image: url("../images/logoRBC.png");
+    background-repeat: no-repeat;
+    background-position-y: -40px;
+    line-height: 0.6;
+}
+.titre_site a, .titre_site a:visited{
+    text-decoration: none;
+    color: white;
+}
+.titre_site a:hover{
+    text-decoration: none;
+    color: #ecf0f1;
+}
+
+#infos_roadbook{
+    border: #2ecc71 solid 2px;
+    border-width: 2px 0;
+
+    margin: 10px 0 15px 0;
+    padding: 7px;
+    text-align: right;
+    background-color: #fff;
+}
+
+#infos_roadbook table{
+    width:100%;
+    border: 0px
+}
+#infos_roadbook .ir-left{
+    border:none;
+    text-align: left;
+    width: 33%
+}
+#infos_roadbook .ir-right{
+    border:none;
+    text-align: right; 
+    padding-right: 15px
+}
+
+#infos_roadbook a{
+    margin-left: 16px;
+    font-family: 'Bai Jamjuree', sans-serif;
+    color: #000;
+}
+
+
+.direction-image img{
+    width: 75px;
+    height: 75px;
+    margin: auto;
+}
+
+#data-brute{
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    border-color: #446aa3;
+
+
+
+}
+
+#coller-donnees{
+    /*margin-left: 20px;*/
+    font-size: 30px;
+    color:#2980b9;
+    cursor: pointer;
+}
+#vider-data-brute{
+    /*margin-left: 20px;*/
+    font-size: 30px;
+    color:#e67e22;
+    cursor: pointer;
+}
+.data-container{
+    width: 75%;
+    border: 0px;
+    margin: auto;
+}
+.data-container td{
+
+    border: 0px;
+
+}
+
+#data-brute:hover{
+    background-color: #446aa3;
+
+}
+
+#import-button, #export-button, 
+#bouton-sauver-projet, #charger-projet,
+#import-rbk
+{
+    width: 75%;
+    cursor: pointer;
+    font-family: 'Bai Jamjuree', sans-serif; 
+    font-size: 21px;
+    background-color: #2ecc71;
+    color: #fff;
+    margin: auto;
+    padding: 15px;
+    margin-top: 15px;
+    text-align: left;
+}
+#import-button:active,#import-button:active, #export-button:active, 
+#bouton-sauver-projet:active, #charger-projet:active, #appliqueParametres:active,
+#import-rbk:active{
+    color:orange;
+}
+
+.infos{
+    margin: 25px auto;
+    font-style: italic;
+    margin-top: 30px;
+    width: 75%;
+    font-family: 'Bai Jamjuree', sans-serif; 
+    font-size: 16px;
+    text-align: left;
+}
+
+::-webkit-input-placeholder { /* Edge */
+    color: #446aa3;
+    font-family: 'Bai Jamjuree', sans-serif; 
+}
+
+:-ms-input-placeholder { /* Internet Explorer */
+    color: #446aa3;
+    font-family: 'Bai Jamjuree', sans-serif; 
+}
+
+::placeholder {
+    color: #446aa3;
+    font-family: 'Bai Jamjuree', sans-serif; 
+}
+
+#message-erreur{
+    width : 100%;
+    font-family: 'courier new';
+    color: white;
+    background-color: #e74c3c;
+}
+.message{
+    padding: 20px;
+}
+
+#console{
+    width: 100%;
+    height: 200px;
+    background-color: #3e3e3e;
+    color: #fff;
+    font-size: 10px;
+    font-family: monospace;
+    overflow:auto;
+    text-align: left;
+
+}
+
+#liste_fichiers span:hover{
+    font-weight: bold;
+    color: #c0392b;
+    cursor: pointer;
+}
+
+#liste_fichiers{
+    height: 100px;
+    overflow: auto;
+    width: 75%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#rechercher_fichier{
+    width: 50%
+}
+
+.check-file{
+    font-size: 32px;
+    margin: 0px;
+    margin-left: 10px;
+    margin-top: 10px
+
+}
+.glyphicon-minus-sign{
+    color:red;
+}
+
+.glyphicon-ok{
+    color:green;
+
+}
+
+#infos_roadbook .glyphicon{
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#appliqueParametres{
+    background-color: #2ecc71;
+    cursor: pointer;
+    /*padding: 5px;*/
+    color: #fff;
+    font-size: 30px;
+    width: 100%
+}
+
+.colorPicker{
+    width: 100%;
+    height: 100%;
+    border:none;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+#onglet-parametres select{
+    width: 100%
+
+}
+
+.element img{
+    width: 25px;
+    height: 25px;
+}
+
+#outil{
+    border: 1px #000 solid;
+    margin-bottom: 10px;
+    border-width: 1px 0px;
+    text-align: center;
+    display: none;
+    vertical-align: middle;
+    font-size: 20px
+
+
+}
+
+input[type=checkbox]{
+
+    /*    position: relative;
+        vertical-align: middle;
+        bottom: 5px;*/
+}
+
+#for-corriger-distances{
+    margin-left: -3px
+}
+#corriger-distances{
+    margin-left: 10px
+}
+#for-corriger-picto{
+    margin : 0 auto;
+    /*font-size: 22px*/
+
+}
+#corriger-picto{
+    margin-left: 10px;
+    margin-top: 10px;
+
+}

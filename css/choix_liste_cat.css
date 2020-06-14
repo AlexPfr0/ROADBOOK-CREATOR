@@ -1,0 +1,31 @@
+/*Fichier CSS contenant le style de la liste déroulante des catégories (Upload d'image).*/
+
+#img_dest{
+    text-align: left;
+    width: 75%;
+    margin: auto;
+}
+
+#img_dest .label-mba{
+    font-size: 15px
+}
+
+.dropdown-menu .cat:hover{
+
+    color: #fff;
+}
+
+.liste-cat{
+    width : 200px
+}
+
+#cat-select{
+    width: 100%;
+    background-color: #2ecc71;
+    border-color: #2ecc71;
+    color: #fff;
+    font-size: 18px;
+    padding: 15px;
+    margin-bottom: 15px
+}
+
