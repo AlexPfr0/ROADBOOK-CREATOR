@@ -1,6 +1,8 @@
 <?php
- //echo json_encode(get_image("./Pictogrammes/Directions/"));
-$categorie = $_GET['categorie'];
+// Permet de lister les images et de les afficher dans 
+// le panel concerné.
+// Ce script php est appelé avec ajax lors de l'upload de pictogrammes
+$categorie = filter_input(INPUT_GET, 'categorie');
 $categorie = 'Pictogrammes/' . $categorie;
 $liste_picto = [];
 

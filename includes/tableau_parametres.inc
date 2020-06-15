@@ -118,7 +118,6 @@
             <input <? echo generer_style($reglage->couleur_lignes) ?>
                 type="text" id="borderColor" class="colorPicker target-page" value="<?php echo $reglage->couleur_lignes ?>" />
             <div class="palette" id="Palette-borderColor"></div>
-            <!--<script src="jQuery/colorPicker/la_color_picker.js"></script>-->
         </td>
 
     </tr>

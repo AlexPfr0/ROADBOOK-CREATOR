@@ -1,4 +1,4 @@
-// Cette classe permet de calculer les distance Intermédiaire (dInter) et restante (dRestante)
+// Cette classe permet de calculer les distance Intermédiaire (dPartielle) et restante (dRestante)
 // La distance parcourue (dParcourue) est récupérée dans les données de Kurviger
 // Elle prend en paramètre le nombre de chiffres après la virgule par défaut. Cette option sera disponible dans le paramètres
 
@@ -25,19 +25,19 @@ var calculerDistance = function(nbDecimales = 3){
         }
         
         
-        var dInter;
+        var dPartielle;
         
-        dInter = ((dActu - dPrec)/div).toFixed(nbDecimales);
+        dPartielle = ((dActu - dPrec)/div).toFixed(nbDecimales);
     
     // Pour la première étape, il n'existe pas d'étape -1, elle est NaN, donc on l'initie manuellement
-        if(isNaN(dInter)){
+        if(isNaN(dPartielle)){
             
-                dInter = (0.000).toFixed(nbDecimales);
+                dPartielle = (0.000).toFixed(nbDecimales);
          }
          
-         $('#console').append('<b style="color:#2ecc71">Calcul dInter :</b> ' + dActu + '-' + dPrec + '->' + dInter + '<br>');
+         $('#console').append('<b style="color:#2ecc71">Calcul dPartielle :</b> ' + dActu + '-' + dPrec + '->' + dPartielle + '<br>');
          
-        return dInter;
+        return dPartielle;
     
     };
     

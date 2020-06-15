@@ -1,5 +1,7 @@
 <?php
-
+// Contient les paramètres par défaut
+// Est intanciée en haut du fichier index.php
+// Reçoit les paramètres contenus dans les cookies s'ils existent
 class reglages {
     
     public $langage = "fr_FR";

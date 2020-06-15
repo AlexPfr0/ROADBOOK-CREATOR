@@ -1,0 +1,3 @@
+- Le dossier pdf contient le style pour générer le roadbook
+- pdfDefaultCss.css contient le thème par défaut
+- pdfUserCss.css contient le style que l'utilisateur à choisi dans les paramètres

@@ -1,9 +1,9 @@
 <?php
 $categorie = '';
-if($_POST['categorie'] === ''){
+if(filter_input(INPUT_POST, 'categorie') === ''){
     $categorie = 'non-classe/';
 }else{
-    $categorie = $_POST['categorie'] . '/';
+    $categorie = filter_input(INPUT_POST, 'categorie') . '/';
 }
 
 

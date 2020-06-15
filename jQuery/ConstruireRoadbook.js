@@ -78,17 +78,17 @@ var construireRoadbook = function () {
         // données diffère. 
         // Ainsi je transforme le pattern de chaque pays en un pattern universel.
         var data;
-        var motEscale = ['Escale', 'Wegpunkt', 'Waypoint', 'Pasando', 'Marker', 'Σημείο'];
-        var motArrivee = ['Arrivée', 'Ziel', 'Arrive', 'recorrido', 'Bestemming', 'Άφιξη'];
+        var motEscale   = ['Escale', 'Wegpunkt', 'Waypoint', 'Pasando', 'Marker', 'Σημείο'];
+        var motArrivee  = ['Arrivée', 'Ziel', 'Arrive', 'recorrido', 'Bestemming', 'Άφιξη'];
         
-        var modelEscale = '5x#';
-        var modelArrivee = '02#15%';
+        var modelEscale     = '5x#';
+        var modelArrivee    = '02#15%';
         
         for (var i = 0; i < motEscale.length; i++) {
             
-            var regex = new RegExp(motEscale[i],"ig");
-            var regex2 = new RegExp(motArrivee[i],"ig");
-            var test = regex.test(dataBrute);
+            var regex   = new RegExp(motEscale[i],"ig");
+            var regex2  = new RegExp(motArrivee[i],"ig");
+            var test    = regex.test(dataBrute);
             if(test){
                 data = dataBrute.replace(regex, modelEscale);
                 data = data.replace(regex2, modelArrivee);
@@ -117,24 +117,26 @@ var construireRoadbook = function () {
         // Splite des donnees. Récupération de chaque ligne dans le tableau "lignes".
         
             var lignes = data_brute.split("\n");
-            var KurvigerLangage = '';
+//            var KurvigerLangage = '';
             var e = 1;
         
         // Initialisation du tableau d'objets. Ici on aura à tableau d'étapes.
         // Chaque étape sera composé des distances calculées, de son image de direction
         // et de son commentaire
 
-            var Etape = new Array();
-            Etape[0] = new Object();
-            Etape[0].numero = 0;
-            Etape[0].escale = '';//this.motCleInit(this.getCookie("_RBC_Langage")).depart;;
-            var dParcourue = 0;
+            var Etape   = new Array();
+            Etape[0]    = new Object();
+            Etape[0].numero     = 0;
+            Etape[0].escale     = '';//this.motCleInit(this.getCookie("_RBC_Langage")).depart;;
+            var dParcourue      = 0;
             Etape[0].dParcourue = dParcourue;
-            Etape[0].dInter = 0;
+            Etape[0].dPartielle = 0;
+            
             var dTotale = (lignes[lignes.length - 1]).replace("\t\t", "\t").split("\t")[2] / 1000;
-            Etape[0].dRestante = dTotale;
-            Etape[0].commentaire = '';
-            Etape[0].direction = '';
+            
+            Etape[0].dRestante      = dTotale;
+            Etape[0].commentaire    = '';
+            Etape[0].direction      = '';
             
             // Parcours du tableau "lignes" issu du split 
             
@@ -159,13 +161,13 @@ var construireRoadbook = function () {
                     
                     // Remplisssage du tableau d'étapes. Chaque étape représente un nouvel objet.
                     Etape[e] = new Object();
-                    Etape[e].numero = e;
-                    Etape[e].escale = mots[1];
-                    Etape[e].dParcourue = calculerDistance.Parcourue(mots[2], 'data-brute');
-                    Etape[e].dInter = calculerDistance.Partielle(Etape[e].dParcourue, Etape[e - 1].dParcourue, 'data-brute');
-                    Etape[e].dRestante = calculerDistance.Restante(dTotale, Etape[e].dParcourue);
-                    Etape[e].commentaire = '';
-                    Etape[e].direction = '';
+                    Etape[e].numero         = e;
+                    Etape[e].escale         = mots[1];
+                    Etape[e].dParcourue     = calculerDistance.Parcourue(mots[2], 'data-brute');
+                    Etape[e].dPartielle     = calculerDistance.Partielle(Etape[e].dParcourue, Etape[e - 1].dParcourue, 'data-brute');
+                    Etape[e].dRestante      = calculerDistance.Restante(dTotale, Etape[e].dParcourue);
+                    Etape[e].commentaire    = '';
+                    Etape[e].direction      = '';
                     e++;
 
                 }
@@ -231,18 +233,18 @@ var construireRoadbook = function () {
                     // Initilaisation des variables
 
                     var eNumero = i;
-                    var edInter =
-                            edRestante =
-                            edParcourue =
-                            eCommentaire =
-                            eDirection = '';
+                    var edPartielle         =
+                            edRestante      =
+                            edParcourue     =
+                            eCommentaire    =
+                            eDirection      = '';
 
                     var eNumero2 = i + 12;
-                    var edInter2 =
-                            edRestante2 =
-                            edParcourue2 =
-                            eCommentaire2 =
-                            eDirection2 = '';
+                    var edPartielle2        =
+                            edRestante2     =
+                            edParcourue2    =
+                            eCommentaire2   =
+                            eDirection2     = '';
                     
                     // Si l'index de "Etape" est undefined, c'est 
                     // que l'index n'existe pas. On ne remplit le tableau qu'avec des données
@@ -250,22 +252,22 @@ var construireRoadbook = function () {
                     // Première colonne du tableau (du roadbook)
                     if (typeof Etape[i] !== 'undefined') {
 
-                        var eNumero = Etape[i].numero;
-                        var edInter = Etape[i].dInter;
-                        var edRestante = Etape[i].dRestante;
-                        var edParcourue = Etape[i].dParcourue;
-                        var eCommentaire = Etape[i].commentaire;
-                        var eDirection = Etape[i].direction;
+                        var eNumero         = Etape[i].numero;
+                        var edPartielle     = Etape[i].dPartielle;
+                        var edRestante      = Etape[i].dRestante;
+                        var edParcourue     = Etape[i].dParcourue;
+                        var eCommentaire    = Etape[i].commentaire;
+                        var eDirection      = Etape[i].direction;
                     }
                     
                     // Deuxièmre colonne du tableau (du roadbook)
                     if (typeof Etape[i + 12] !== 'undefined') {
-                        var eNumero2 = Etape[i + 12].numero;
-                        var edInter2 = Etape[i + 12].dInter;
-                        var edRestante2 = Etape[i + 12].dRestante;
-                        var edParcourue2 = Etape[i + 12].dParcourue;
-                        var eCommentaire2 = Etape[i + 12].commentaire;
-                        var eDirection2 = Etape[i + 12].direction;
+                        var eNumero2        = Etape[i + 12].numero;
+                        var edPartielle2    = Etape[i + 12].dPartielle;
+                        var edRestante2     = Etape[i + 12].dRestante;
+                        var edParcourue2    = Etape[i + 12].dParcourue;
+                        var eCommentaire2   = Etape[i + 12].commentaire;
+                        var eDirection2     = Etape[i + 12].direction;
 
                     }
                     
@@ -276,8 +278,8 @@ var construireRoadbook = function () {
                         // La fonction "nouvelleLigne() se trouve dans la classe elementTable (./jQuery/ElementTable.js)
                         $("#page-" + n)
                                 .append(elementTable.nouvelleLigne(
-                                        eNumero, edInter, edRestante, edParcourue, eDirection, eCommentaire,
-                                        eNumero2, edInter2, edRestante2, edParcourue2, eDirection2, eCommentaire2));
+                                        eNumero, edPartielle, edRestante, edParcourue, eDirection, eCommentaire,
+                                        eNumero2, edPartielle2, edRestante2, edParcourue2, eDirection2, eCommentaire2));
 
 // Si le mode correction est activé, on ne remplace que les valeurs dans les cases adéquates.                
                     } else if (modeCorrection === 'actif') {
@@ -288,8 +290,8 @@ var construireRoadbook = function () {
 ;                           
                             // Correction des valeurs uniquement (on ne touche pas aux images ni aux commentaires)
 
-                            elementTable.corrigeDistances(eNumero, edParcourue, edRestante, edInter,
-                                    eNumero2, edParcourue2, edRestante2, edInter2);
+                            elementTable.corrigeDistances(eNumero, edParcourue, edRestante, edPartielle,
+                                    eNumero2, edParcourue2, edRestante2, edPartielle2);
                         
                             // Si dParcourue est vide, on est à la fin du tableau, on peut supprimer les pages inutiles
                             if(edParcourue === '')$('#page-' + parseInt(n+1)).remove();
@@ -308,42 +310,42 @@ var construireRoadbook = function () {
 
 
                                 //console.log(i);
-                                var eNumero = i;
-                                var edInter =
-                                        edRestante =
-                                        edParcourue =
-                                        eCommentaire =
-                                        eDirection = '';
+                                var eNumero     = i;
+                                var edPartielle         =
+                                        edRestante      =
+                                        edParcourue     =
+                                        eCommentaire    =
+                                        eDirection      = '';
 
-                                var eNumero2 = i + 12;
-                                var edInter2 =
-                                        edRestante2 =
-                                        edParcourue2 =
-                                        eCommentaire2 =
-                                        eDirection2 = '';
+                                var eNumero2    = i + 12;
+                                var edPartielle2        =
+                                        edRestante2     =
+                                        edParcourue2    =
+                                        eCommentaire2   =
+                                        eDirection2     = '';
 
                                 if (typeof Etape[i] !== 'undefined') {
 
-                                    var eNumero = Etape[i].numero;
-                                    var edInter = Etape[i].dInter;
-                                    var edRestante = Etape[i].dRestante;
-                                    var edParcourue = Etape[i].dParcourue;
-                                    var eCommentaire = Etape[i].commentaire;
-                                    var eDirection = Etape[i].direction;
+                                    var eNumero         = Etape[i].numero;
+                                    var edPartielle     = Etape[i].dPartielle;
+                                    var edRestante      = Etape[i].dRestante;
+                                    var edParcourue     = Etape[i].dParcourue;
+                                    var eCommentaire    = Etape[i].commentaire;
+                                    var eDirection      = Etape[i].direction;
                                 }
 
                                 if (typeof Etape[i + 12] !== 'undefined') {
-                                    var eNumero2 = Etape[i + 12].numero;
-                                    var edInter2 = Etape[i + 12].dInter;
-                                    var edRestante2 = Etape[i + 12].dRestante;
-                                    var edParcourue2 = Etape[i + 12].dParcourue;
-                                    var eCommentaire2 = Etape[i + 12].commentaire;
-                                    var eDirection2 = Etape[i + 12].direction;
+                                    var eNumero2        = Etape[i + 12].numero;
+                                    var edPartielle2    = Etape[i + 12].dPartielle;
+                                    var edRestante2     = Etape[i + 12].dRestante;
+                                    var edParcourue2    = Etape[i + 12].dParcourue;
+                                    var eCommentaire2   = Etape[i + 12].commentaire;
+                                    var eDirection2     = Etape[i + 12].direction;
                                 }
                                 $("#page-" + n)
                                         .append(elementTable.nouvelleLigne(
-                                                eNumero, edInter, edRestante, edParcourue, eDirection, eCommentaire,
-                                                eNumero2, edInter2, edRestante2, edParcourue2, eDirection2, eCommentaire2));
+                                                eNumero, edPartielle, edRestante, edParcourue, eDirection, eCommentaire,
+                                                eNumero2, edPartielle2, edRestante2, edParcourue2, eDirection2, eCommentaire2));
 
                             }
 
@@ -398,8 +400,8 @@ evenement.imprimerRoadbook();
 
     this.depuisFichierRBK = function (fichierRBK) {
         
-                var auteur = '';
-                var date = '';
+                var auteur  = '';
+                var date    = '';
                 var langage = '';
                 var version = '';
 
@@ -423,12 +425,12 @@ evenement.imprimerRoadbook();
                      //            Pour chaque nouvelle entrée, on crée un nouveau object Etape + son index
                     Etape[i] = new Object();
 
-                    Etape[i].distance = nouvelleLigne.d;
-                    Etape[i].direction = nouvelleLigne.i;
-                    Etape[i].commentaire = nouvelleLigne.c;
+                    Etape[i].distance       = nouvelleLigne.d;
+                    Etape[i].direction      = nouvelleLigne.i;
+                    Etape[i].commentaire    = nouvelleLigne.c;
                     }else{
-                        auteur = nouvelleLigne.RBKauteur;
-                        date = nouvelleLigne.RBKdate;
+                        auteur  = nouvelleLigne.RBKauteur;
+                        date    = nouvelleLigne.RBKdate;
                         langage = nouvelleLigne.RBKlangage;
                         version = nouvelleLigne.RBKversion;
                     }
@@ -440,21 +442,21 @@ evenement.imprimerRoadbook();
             
 
 // Initialisation des variables
-                var D_inter = '';
-                var num_etape = 0;
-                var D_restante = '';
+                var D_partielle     = '';
+                var num_etape       = 0;
+                var D_restante      = '';
 
-                var D_parcourue = '';
-                var direction = '';
-                var commentaire = '';
+                var D_parcourue     = '';
+                var direction       = '';
+                var commentaire     = '';
 
-                var D_inter2 = '';
-                var num_etape2 = 0;
-                var D_restante2 = '';
+                var D_partielle2    = '';
+                var num_etape2      = 0;
+                var D_restante2     = '';
 
-                var D_parcourue2 = '';
-                var direction2 = '';
-                var commentaire2 = '';
+                var D_parcourue2    = '';
+                var direction2      = '';
+                var commentaire2    = '';
 
 // Cette variable servira dans la boucle pour parcourir le tableau d'objet.
 // Le modulo n'est pas vraiment indispensable, il a surtout servi pour générer
@@ -512,16 +514,16 @@ evenement.imprimerRoadbook();
 // Il faudra donc se décaler dans le tableau pour certains calculs.
                             if (i === t) {
                                 if (t === 0) {
-                                    D_inter = calculerDistance.Partielle(Etape[i].distance, Etape[i].distance, 'rbk');
+                                    D_partielle = calculerDistance.Partielle(Etape[i].distance, Etape[i].distance, 'rbk');
 
                                 } else {
-                                    D_inter = calculerDistance.Partielle(Etape[i].distance, Etape[i - 1].distance, 'rbk');
+                                    D_partielle = calculerDistance.Partielle(Etape[i].distance, Etape[i - 1].distance, 'rbk');
                                 }
 
 
                             } else {
 
-                                D_inter = calculerDistance.Partielle(Etape[i].distance, Etape[i - 1].distance, 'rbk');
+                                D_partielle = calculerDistance.Partielle(Etape[i].distance, Etape[i - 1].distance, 'rbk');
                             }
 
                             D_restante = calculerDistance.Restante(D_totale, D_parcourue);
@@ -536,10 +538,10 @@ evenement.imprimerRoadbook();
 // on initialise les valeur à rien, soit vide. (sauf pour le n° d'étape)
                         else {
 
-                            D_restante = '';
+                            D_restante  = '';
                             D_parcourue = '';
-                            D_inter = '';
-                            direction = '';
+                            D_partielle = '';
+                            direction   = '';
                             commentaire = '';
                         }
 
@@ -548,9 +550,9 @@ evenement.imprimerRoadbook();
 // GENERATION DE LA SECONDE COLONNE DE LA FEUILLE                 
                         if (Etape[i + 12].distance !== '9999') {
                             nb_etape++;
-                            D_parcourue2 = calculerDistance.Parcourue(Etape[i + 12].distance, 'rbk');
-                            D_inter2 = calculerDistance.Partielle(Etape[i + 12].distance, Etape[i + 12 - 1].distance, 'rbk');
-                            D_restante2 = calculerDistance.Restante(D_totale, D_parcourue2);
+                            D_parcourue2    = calculerDistance.Parcourue(Etape[i + 12].distance, 'rbk');
+                            D_partielle2    = calculerDistance.Partielle(Etape[i + 12].distance, Etape[i + 12 - 1].distance, 'rbk');
+                            D_restante2     = calculerDistance.Restante(D_totale, D_parcourue2);
 
                             (Etape[i + 12].direction === 'null') ? direction2 = '' : direction2 = elementTable.creerImageDirection(Etape[i + 12].direction);
 
@@ -558,37 +560,27 @@ evenement.imprimerRoadbook();
                             commentaire2 = Etape[i + 12].commentaire;
 
                         } else {
-                            D_restante2 = '';
-                            D_parcourue2 = '';
-                            D_inter2 = '';
-                            direction2 = '';
-                            commentaire2 = '';
+                            D_restante2     = '';
+                            D_parcourue2    = '';
+                            D_partielle2    = '';
+                            direction2      = '';
+                            commentaire2    = '';
                         }
 
                         num_etape2 = num_etape + 12;
 
                         $("#page-" + n).append(elementTable.nouvelleLigne(num_etape,
-                                D_inter, D_restante, D_parcourue, direction, commentaire,
-                                num_etape2, D_inter2, D_restante2, D_parcourue2, direction2, commentaire2));
+                                D_partielle, D_restante, D_parcourue, direction, commentaire,
+                                num_etape2, D_partielle2, D_restante2, D_parcourue2, direction2, commentaire2));
 
                     }
 
                     t += 24;
 
-                    num_etape += 12;
-                    num_etape2 += 12;
+                    num_etape   += 12;
+                    num_etape2  += 12;
                     $("#page-" + n).append(elementTable.ligneVide(2, 'Page ' + n + ' - Généré avec ROADBOOK CREATOR by Alex', 'https://roadbook.alexp.fr'));
                     $("#page-" + n).append('</table>');
-
-
-
-
-//                    evenement.DragDropImage();
-//                    evenement.supprimeImageDirection();
-                    //   evenement.editCommentaire();
-
-
-
 
                 }
 

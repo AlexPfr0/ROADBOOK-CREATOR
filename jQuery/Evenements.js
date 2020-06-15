@@ -84,6 +84,9 @@ if(md === false){
 
 };
 
+
+// Cette fonction permet de recharger les pictogrammes dans le 
+// panel concerné après uploud d'image
 this.rafraichirPanelImages = function(categorie){
   
 $.ajax({
@@ -125,7 +128,7 @@ console.log('Suppression de l\'image');
     
     // Fonction pour ajouter un textarea pour éditer les commentaires
     // Obsolète => remplacé par l'attribut HTML "contentEditable"
-    // Erreur volontaire (editCommentair[e]
+    // Erreur volontaire (editCommentair[e])
     this.editCommentair = function () {
 
         $(".commentaire").mousedown(function () {
@@ -253,6 +256,9 @@ console.log('Suppression de l\'image');
         });
     };
     
+    // Gestion de la correction de l'ordre des pictogrammes
+    // dans le roadbook. L'activation de ce mode désactive
+    // le gissé-déposé depuis les panels
     this.activeCorrectionPicto = function () {
         
 
@@ -261,7 +267,6 @@ console.log('Suppression de l\'image');
             if ($(this).prop("checked") === true) {
                 $('#mode-correction-picto').val('actif');
                 evenement.DragDropImage(true);
-                //console.log("Checkbox is checked.");
 
             } else if ($(this).prop("checked") === false) {
                 evenement.DragDropImage(false);
@@ -271,7 +276,10 @@ console.log('Suppression de l\'image');
 
         });
     };
-
+    
+    
+    // Vide la zone de réception des données brute
+    // Désactive la checkbox de correction des distances
     this.viderDataBrute = function () {
         $('#vider-data-brute').click(function () {
             $('#data-brute').val('');
@@ -280,7 +288,9 @@ console.log('Suppression de l\'image');
             
         });
     };
-
+    
+    
+    // Récupération de la catégorie sélectionnée pour l'envoi de pictogrammes
     this.selectCategorie = function () {
         $('#cat-select').change(function () {
             var value = $(this).children("option:selected").val();
@@ -311,7 +321,6 @@ console.log('Suppression de l\'image');
                 $('#fichier_check').removeClass('glyphicon-minus-sign');
                 $('#fichier_check').addClass('glyphicon-ok');
             }
-            console.log(resultat);
 
             listeFichiers.html(listeFichiers.text().replace(regex, '<b style="color:#d35400">' + recherche + '</b>'));
 
@@ -321,12 +330,12 @@ console.log('Suppression de l\'image');
     
     this.afficheOutils = function(){
         
-         
-        $( "#affiche-outil" ).click(function() {
-    $( "#outil" ).toggle( "fast", function() {
-    // Animation complete.
-  });
-});
+
+        $("#affiche-outil").click(function () {
+            $("#outil").toggle("fast", function () {
+
+            });
+        });
     };
     
     // Permet de sauvegarder les paramètres.
@@ -349,15 +358,6 @@ console.log('Suppression de l\'image');
             actionCookies.creeCookie('_RBC_CookiesValidite', $('#validite_cookies').text(), nbJours);
             actionCookies.creeCookie('_RBC_UniteMesure', $('#unite-mesure').val(), nbJours);
             actionCookies.creeCookie('_RBC_ColonneUnique', $('#colonne-unique').val(), nbJours);
-
-
         });
-
     };
-    
-
-
-
-
-
 };

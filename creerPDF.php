@@ -1,10 +1,13 @@
 <?php
+
+// Script PHP permettant de générer le PDF
+// Fait appel à la classe HTML2PDF
 ini_set('display_errors',1);
 //
-$nom_roadbook = $_POST['NOM_ROADBOOK'];
-$html_brut = $_POST['HTML_BRUT'];
-$css = file_get_contents('./pdf/pdfDefaultCss.css');
-$cssUser = $_POST['CSS_PERSO']; //file_get_contents('./pdf/pdfUserCss.css');
+$nom_roadbook   = filter_input(INPUT_POST, 'NOM_ROADBOOK');
+$html_brut      = filter_input(INPUT_POST, 'HTML_BRUT');
+$css            = file_get_contents('./pdf/pdfDefaultCss.css');
+$cssUser        = filter_input(INPUT_POST, 'CSS_PERSO'); //file_get_contents('./pdf/pdfUserCss.css');
  
 ob_start(); 
 echo '<style>';
@@ -39,11 +42,6 @@ $pdf->output($nom_roadbook . '.pdf');
     
 }
 
-//require './html2pdf/Html2Pdf.php';
-//
-
-  
- 
 ?>
 
  
