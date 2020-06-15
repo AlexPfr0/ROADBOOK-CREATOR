@@ -86,13 +86,13 @@ function generer_style($cookie) {
     return $style;
 }
 
-function get_version(){
-    $derniere_version = @file_get_contents("http://roadbook.alexp.fr/version/.version");
-    if ($derniere_version == '') {
-        $derniere_version = $reglage->BRC_version;
-    }
-    if ($APIversion - $derniere_version < 0) {
-        echo '<p style="font-size:0.8em;color:#fff">' . $expression->maj_dispo . '<br />'
-        . '<a class="link" href="http://games.alex-box.net/aws-wrd-rcon-gerer-un-serveur-wargame/aws-wrd-rcon-telechargement/" target="_blank">' . $expression->telecharge_maj . ' (' . $derniere_version . ')</a>.</p>';
-    }
-}
+//function get_version(){
+//    $derniere_version = @file_get_contents("http://roadbook.alexp.fr/version/.version");
+//    if ($derniere_version == '') {
+//        $derniere_version = $reglage->BRC_version;
+//    }
+//    if ($APIversion - $derniere_version < 0) {
+//        echo '<p style="font-size:0.8em;color:#fff">' . $expression->maj_dispo . '<br />'
+//        . '<a class="link" href="http://games.alex-box.net/aws-wrd-rcon-gerer-un-serveur-wargame/aws-wrd-rcon-telechargement/" target="_blank">' . $expression->telecharge_maj . ' (' . $derniere_version . ')</a>.</p>';
+//    }
+//}
