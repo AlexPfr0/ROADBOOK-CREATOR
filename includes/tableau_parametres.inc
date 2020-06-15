@@ -14,21 +14,22 @@
         </td>
         <td class="valeurs"> 
             <select id="langage">
-                <option <?php
-                if ($reglage->langage == 'fr_FR') {
-                    echo ' selected="selected" ';
+                <?
+                $langages = $reglage->langages_liste;
+                $option = '';
+                foreach ($langages as $l => $langue){
+                    $option .= '<option';
+                    if ($reglage->langage == $langue) {
+                    $option .= ' selected="selected" ';
                 }
-                ?> value="fr_FR">Français</option>
-                <option <?php
-                if ($reglage->langage == 'de_DE') {
-                    echo ' selected="selected" ';
+                    $option .= ' value="'.$langue.'">';
+                    $option .= $l;
+                    $option .= '</option>';
+                    
                 }
-                ?> value="de_DE">Deutch</option>
-                <option <?php
-                if ($reglage->langage == 'en_EN') {
-                    echo ' selected="selected" ';
-                }
-                ?> value="en_EN">English</option>
+                echo $option;
+                
+                ?>
             </select>
 
         </td>

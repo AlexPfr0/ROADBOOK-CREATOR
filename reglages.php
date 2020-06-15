@@ -5,6 +5,11 @@
 class reglages {
     
     public $langage = "fr_FR";
+    public $langages_liste  = array('Français' => 'fr_FR',
+                                    'English' => 'en_EN', 
+                                    'Deutch' => 'de_DE',
+                                    );
+    
     public $decimal = 3;
     public $couleur_lignes = "#666";
     public $couleur_d_inter = "#000";
