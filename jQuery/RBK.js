@@ -162,11 +162,11 @@ var RBK = function () {
                     file.previewElement.id = response.id;
 
                     // Construction du roadbook
-
+evenement.console('Fichier RBK chargé','infoA');
                     construireRoadbook.depuisFichierRBK(file.name);
 
                     // Suppression du fichier envoyé
-                    // après 5 seconde pour avoir le temps de le lire.
+                    // après 5 secondes pour avoir le temps de le lire.
 
                     setTimeout(function () {
                         oRBK.supprime(file.name);

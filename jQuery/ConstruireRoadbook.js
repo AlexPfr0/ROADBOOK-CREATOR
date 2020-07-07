@@ -106,7 +106,7 @@ var construireRoadbook = function () {
      
     this.depuisDonneesBrutes = function () {
         
-        
+evenement.console("Importation données brutes", 'infoA');        
 
         // Récupération des données
 
@@ -139,7 +139,7 @@ var construireRoadbook = function () {
             Etape[0].direction      = '';
             
             // Parcours du tableau "lignes" issu du split 
-            
+evenement.console("Parsing ...", 'infoA');            
             for (var i = 0; i < lignes.length; i++) {
                 
                 // Split de chaque ligne. Le shema est la tabulation (soit 4 espaces)
@@ -218,12 +218,21 @@ var construireRoadbook = function () {
             // Boucle pour chaque page
             
             for (var n = 1; n <= nb_page_entiere + 1; n++) {
-                
+evenement.console("Calculs page " + n +" ...", 'alertA');
+
                 // Si modeCorrection est inactif, inutile de créer l'entête du tableau
 
                 if (modeCorrection === 'inactif') {
                     $("#feuille-roadbook").append('<table class="page" id="page-' + n + '">');
                     $("#page-" + n).append(elementTable.entete());
+                    
+evenement.console("Entête générée", 'okA');
+
+evenement.console("Mode correction inactif, ajout des données ...", 'alertA');
+
+
+                }else{
+evenement.console("Mode correction actif, modification des données ...", 'alertA');
                 }
 
             // Boucle pour remplir chaque étape de la page courante
@@ -368,7 +377,8 @@ var construireRoadbook = function () {
                     $("#page-" + n).append(elementTable.ligneVide(2, 'Page ' + n + ' - Généré avec ROADBOOK CREATOR by Alex', 'https://roadbook.alexp.fr'));
                     $("#page-" + n).append('</table>');
                 }
-
+                
+evenement.console("Page " + n + " générée...", 'okA');
                 
             }
 //        drag_drop_image();
@@ -379,7 +389,7 @@ var construireRoadbook = function () {
 //evenement.supprimeImageDirection();
 
         } catch (erreur) {
-
+evenement.console("Données mal formatées", 'critiqueA');
             $("#feuille-roadbook").append(elementTable.ligneErreur(erreur));
 
         }
@@ -406,6 +416,8 @@ evenement.imprimerRoadbook();
                 var version = '';
 
         try {
+            
+evenement.console("Récupération des données depuis le serveur", 'infoA');
             // Récupération du contenu du fichier envoyé       
             $.get("./upload/" + fichierRBK, function (data) {
 
@@ -417,7 +429,7 @@ evenement.imprimerRoadbook();
                 // Création du tableau qui accueillera chaque étape dans un objet
                 var Etape = new Array();
 
-
+evenement.console("Calculs ...", 'infoA');
 //        Parcours du fichier RBK au format JSON
                 $.each($.parseJSON(roadbook), function (i, nouvelleLigne) {
                     
@@ -495,17 +507,20 @@ evenement.imprimerRoadbook();
 // On l'initialise à un pour pouvoir afficher le numéro sans 
 // bidouillage. Ici, pour chaque page (nb_page_entiere, cf plus haut)
                 for (var n = 1; n <= nb_page_entiere; n++) {
-
+evenement.console("Calculs page " + n +" ...", 'infoA');
 // Création de l'entête de la page
                     $("#feuille-roadbook").append('<table class="page" id="page-' + n + '">');
+                    
+evenement.console("Entête générée", 'okA');                    
                     $("#page-" + n).append(elementTable.entete());
-
+                    
+evenement.console("Ajout des données dans le roadbook...", 'infoA');
 // Nous allons mettre 24 étapes par page, sur deux colonnes, soit 12 lignes
                     for (var i = t; i < 12 + t; i++) {
-                        nb_etape++;
+                        
 // On ignore les valeurs distance à 9999 (cf plus haut)
                         if (Etape[i].distance !== '9999') {
-
+                            nb_etape++;
 // Les fonctions de calculs se situent dans le fichier "calculerDistances.js" 
 // GENERATION DE LA PREMIERE COLONNE DE LA FEUILLE
                             D_parcourue = calculerDistance.Parcourue(Etape[i].distance, 'rbk');
@@ -565,6 +580,8 @@ evenement.imprimerRoadbook();
                             D_partielle2    = '';
                             direction2      = '';
                             commentaire2    = '';
+                            
+                           
                         }
 
                         num_etape2 = num_etape + 12;
@@ -609,13 +626,14 @@ evenement.imprimerRoadbook();
             evenement.imprimerRoadbook();
             });
             
-
+evenement.console("Terminé ...", 'okA');
 
         } catch (erreur) {  
             console.log('Une erreur est survenue');
             $("#feuille-roadbook").append(elementTable.ligneErreur(erreur));
 
         }
+        
 
     };
 

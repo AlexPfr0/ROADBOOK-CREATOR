@@ -35,7 +35,7 @@ var calculerDistance = function(nbDecimales = 3){
                 dPartielle = (0.000).toFixed(nbDecimales);
          }
          
-         $('#console').append('<b style="color:#2ecc71">Calcul dPartielle :</b> ' + dActu + '-' + dPrec + '->' + dPartielle + '<br>');
+//         $('#console').append('<b style="color:#2ecc71">Calcul dPartielle :</b> ' + dActu + '-' + dPrec + '->' + dPartielle + '<br>');
          
         return dPartielle;
     
@@ -49,7 +49,7 @@ var calculerDistance = function(nbDecimales = 3){
         
         var dRestante = (dTotale - dParcourue).toFixed(nbDecimales);
         
-        $('#console').append('<b style="color:#ecf0f1">Calcul dRestante :</b> ' + dTotale + '-' + dParcourue + '->' + dRestante + '<br>');
+//        $('#console').append('<b style="color:#ecf0f1">Calcul dRestante :</b> ' + dTotale + '-' + dParcourue + '->' + dRestante + '<br>');
          
         return dRestante;
     };
@@ -68,7 +68,7 @@ var calculerDistance = function(nbDecimales = 3){
         }
         
         var dParcourue = (dActu/div).toFixed(nbDecimales);
-        $('#console').append('<b style="color:#f1c40f">Calcul dParcourue :</b> ' + dActu + '/' + div + '->' + dParcourue + '<br>');
+//        $('#console').append('<b style="color:#f1c40f">Calcul dParcourue :</b> ' + dActu + '/' + div + '->' + dParcourue + '<br>');
          
         return dParcourue;
         

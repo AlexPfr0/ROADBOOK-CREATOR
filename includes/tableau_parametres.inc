@@ -201,13 +201,18 @@
         <td class="descriptions">
             Valeur case 3 (wip)
         </td>
-        <td id="" class="valeurs" contenteditable="true"></td>
+        <td id="" class="valeurs" contenteditable="true"></td> 
     </tr>
     <tr>
         <td  colspan="2" >
             <div id="appliqueParametres"><?= $expression->appliquer ?></div>
 
-            <script>evenement.appliqueParametres();</script>
+            <script>
+                var validiteCookies = $('#validite_cookies').text();
+                evenement.appliqueParametres(validiteCookies);
+                
+               
+                            </script>
         </td>
 
     </tr>

@@ -5,6 +5,9 @@ var elementTable = function (){
     // Fonction pour afficher les erreurs récupérées dans le try catch
     
     this.ligneErreur  = function(message){
+        
+        
+        
         var ligne_erreur = '<table id="message-erreur">';
         
         
@@ -34,8 +37,8 @@ var elementTable = function (){
         ligne_entete += '</tr>';
         
         
-        $('#console').append('<b style="color:#9b59b6;">Génération de l\'entête.....fait</b></br>');
-        
+//        $('#console').append('<b style="color:#9b59b6;">Génération de l\'entête.....fait</b></br>');
+
         
         return ligne_entete; 
         
@@ -66,11 +69,11 @@ var elementTable = function (){
             D_parcourue2 = D_restante2 = D_inter2 ='';
             
         }
-        $('#console').append('<b style="color:#9b59b6;">Génération des étapes : <br/>');
-        $('#console').append('<b style="color:#9b59b6;"> --> Etape ' + num_etape + 
-                ' avec les valeurs <span style="color: #fff">' + D_parcourue + ', '+D_inter+', '+D_restante+'</span></b><br />');
-        $('#console').append('<b style="color:#9b59b6;"> --> Etape ' + num_etape2 + 
-                ' avec les valeurs <span style="color: #fff">' + D_parcourue2 + ', '+D_inter2+','+D_restante2+'</span>....</b>');
+//        $('#console').append('<b style="color:#9b59b6;">Génération des étapes : <br/>');
+//        $('#console').append('<b style="color:#9b59b6;"> --> Etape ' + num_etape + 
+//                ' avec les valeurs <span style="color: #fff">' + D_parcourue + ', '+D_inter+', '+D_restante+'</span></b><br />');
+//        $('#console').append('<b style="color:#9b59b6;"> --> Etape ' + num_etape2 + 
+//                ' avec les valeurs <span style="color: #fff">' + D_parcourue2 + ', '+D_inter2+','+D_restante2+'</span>....</b>');
         
         var ligne_RB = '<tr>';
         
@@ -97,7 +100,7 @@ var elementTable = function (){
 
         ligne_RB += '</tr>';
         
-        $('#console').append('<b style="color:#9b59b6;">fait</b></br>');
+        
         
         return ligne_RB;
     };
@@ -139,6 +142,38 @@ var elementTable = function (){
         
         return imgTemplate;
     };
+    
+    this.enteteFormulaire = function(titreCourse, dateCourse){
+        
+        titreCourse = 'COM2020';
+        dateCourse = 'Aujourd\'hui';
+        
+        var entete = '<table style="width:100%"><tr>';
+        entete += '<td colspan="8">' + titreCourse + '</td>';
+        entete += '</tr>';
+        entete += '<tr>';
+        entete += '<td colspan="8">' + dateCourse + '</td>';
+        entete += '</tr>';
+        
+        entete += '</tr>';
+        entete += '<td>prénom</td>' + '<td contentEditable="true"></td>' + '<td>groupe</td>' + '<td contentEditable="true"></td>';
+        entete += '<td>moto</td>' + '<td contentEditable="true"></td>' + '<td>kilométrage</td>' + '<td contentEditable="true"></td>';
+        entete += '</tr></table>';
+        
+        return entete;
+     };
+     
+     this.ligneEnigme = function(enigme){
+         
+         var ligne = '<table style="width:100%"><tr>';
+         ligne += '<td colspan="8">' + enigme + '</td>';
+         ligne += '</tr></table>';
+         
+         return ligne;
+         
+     };
+     
+
     
 };
 

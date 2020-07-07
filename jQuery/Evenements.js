@@ -35,7 +35,8 @@ if(md === false){
                   
 
                       $(this).append(ui.draggable.clone().removeClass().removeAttr('style').addClass('img-tab'));
-                  
+                      
+evenement.console("Pictogramme ajouté", 'okA');                  
                     
              evenement.supprimeImageDirection();
  }
@@ -72,7 +73,7 @@ if(md === false){
                   
                $(this).append(ui.draggable);
   
-                    
+ evenement.console("Pictogramme déplacé", 'okA');                    
              evenement.supprimeImageDirection();
  }
                 
@@ -104,7 +105,7 @@ $.ajax({
 
             }
         });
-    
+evenement.console("Le panel '" + categorie + "' a été rechargé", 'okA');   
     
 };
 
@@ -113,13 +114,14 @@ $.ajax({
 
     this.supprimeImageDirection = function () {
         
-console.log('Fonction supprimeImageDirection chargée');
+
 
         $('.direction-image img').dblclick(function () {
-            
-console.log('Suppression de l\'image');
 
-            $(this).remove();
+            var title = $(this).attr('title');
+evenement.console("Pictogramme '" + title + "' supprimé", 'okA');    
+            
+        $(this).remove();
             
         });
 
@@ -245,10 +247,10 @@ console.log('Suppression de l\'image');
 
             if ($(this).prop("checked") === true) {
                 $('#mode-correction').val('actif');
-                //console.log("Checkbox is checked.");
+evenement.console("Mode 'Correction' des distances activé", 'infoA'); 
 
             } else if ($(this).prop("checked") === false) {
-
+evenement.console("Mode 'Correction' des distances désactivé", 'infoA');
                 $('#mode-correction').val('inactif');
 
             }
@@ -267,10 +269,12 @@ console.log('Suppression de l\'image');
             if ($(this).prop("checked") === true) {
                 $('#mode-correction-picto').val('actif');
                 evenement.DragDropImage(true);
+evenement.console("Mode 'Déplacement' des pictogrammes activé", 'infoA');
 
             } else if ($(this).prop("checked") === false) {
                 evenement.DragDropImage(false);
                 $('#mode-correction-picto').val('inactif');
+evenement.console("Mode 'Déplacement' des pictogrammes désactivé", 'infoA');
 
             }
 
@@ -355,9 +359,44 @@ console.log('Suppression de l\'image');
             actionCookies.creeCookie('_RBC_Langage', $('#langage').val(), nbJours);
             actionCookies.creeCookie('_RBC_User', $('#nom_utilisateur').text(), nbJours);
             $('#RBCuser').text($('#nom_utilisateur').text());
-            actionCookies.creeCookie('_RBC_CookiesValidite', $('#validite_cookies').text(), nbJours);
+            actionCookies.creeCookie('_RBC_CookiesValidite', $('#validite_cookies').text(), $('#validite_cookies').text());
             actionCookies.creeCookie('_RBC_UniteMesure', $('#unite-mesure').val(), nbJours);
             actionCookies.creeCookie('_RBC_ColonneUnique', $('#colonne-unique').val(), nbJours);
+            
+console.log($('#validite_cookies').text()) ;
         });
     };
+    
+    this.ajouteEnteteForm = function (){
+        $('#ajouter-entete').click(function(){
+            $("#feuille-roadbook").append(elementTable.enteteFormulaire());
+        });
+    };
+    this.ajouteEnigme = function (){
+        $('#ajouter-enigme').click(function(){
+            $("#feuille-roadbook").append(elementTable.ligneEnigme($('#form-enigme').val()));
+        });
+    };
+    
+         this.console = function(text, type){
+         
+         var date = new Date(Date.now());
+       
+         const heure = date.getHours() ;
+         const min = date.getMinutes() ;
+         const sec = date.getSeconds() ;
+         const mill = date.getMilliseconds() ;
+         
+         var horo = heure +':'+min+':'+sec+'.'+mill;
+         var consoleLigne = '<div ';
+         consoleLigne += ' class="' + type + '">';
+         consoleLigne += '<span style="color:#fff">'+ horo + ' : </span>';
+         consoleLigne += text;
+         consoleLigne += '</div>';
+         
+         $('#console').append(consoleLigne);
+         
+         
+     };
+    
 };

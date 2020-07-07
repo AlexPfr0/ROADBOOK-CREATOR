@@ -45,6 +45,10 @@ body{
     border-top : 0px;
 }
 
+.glyphicon-plus{
+    cursor: pointer;
+}
+
 /*<hr /> dans les panels des onglets*/
 .panel-separateur{
     width: 200px;
@@ -56,6 +60,15 @@ body{
 .panel{
     border: 0;
     border-top: 10px #e74c3c solid;
+}
+
+.panel img{
+    opacity: 0.6;
+}
+
+.panel img:hover{
+    opacity: 1;
+    cursor: move
 }
 
 .panel h3{
@@ -254,7 +267,7 @@ td.commentaire{
 
 #import-button, #export-button, 
 #bouton-sauver-projet, #charger-projet,
-#import-rbk
+#import-rbk,  #ajouter-enigme-button
 {
     width: 75%;
     cursor: pointer;
@@ -266,6 +279,10 @@ td.commentaire{
     padding: 15px;
     margin-top: 15px;
     text-align: left;
+}
+
+#form-enigme{
+    width: 75%
 }
 #import-button:active,#import-button:active, #export-button:active, 
 #bouton-sauver-projet:active, #charger-projet:active, #appliqueParametres:active,

@@ -52,7 +52,7 @@ if (isset($nom_utilisateur_COOKIE)) {
     $reglage->nom_utilisateur = $nom_utilisateur_COOKIE;
 }
 if (isset($validite_cookies_COOKIE)) {
-    $reglage->validite_cookies = 15;//$validite_cookies_COOKIE;
+    $reglage->validite_cookies = $validite_cookies_COOKIE;
 }
 if (isset($unite_mesure_COOKIE)) {
     $reglage->unite_mesure = $unite_mesure_COOKIE;
@@ -82,7 +82,7 @@ $expression = new expressions();
 
 
 
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -128,6 +128,7 @@ $expression = new expressions();
         <link rel="stylesheet" href="css/vertical-tabs.css" type="text/css" />
         <link rel="stylesheet" href="css/tableau_parametres.css" type="text/css" />
         <link rel="stylesheet" href="css/choix_liste_cat.css" type="text/css" />
+        <link rel="stylesheet" href="css/console.css" type="text/css" />
 
         <script src="jQuery/dropzone/dropzone.js"></script>
         <link rel="stylesheet" href="jQuery/dropzone/dropzone.css" type="text/css" />
@@ -177,8 +178,7 @@ $expression = new expressions();
 
 <!--Barre d'outils (cachée par défaut)-->
 <div id="outil">
-    <span><a herf="creer_formulaire.php">Créer un formulaire</a></span> | 
-    <span><a herf="creer_formulaire.php">Accéder au forum</a></span> | 
+| 
     <input type="text" id="mode-correction-picto"  value="inactif" hidden="" />
     <label id="for-corriger-picto" for="corriger-picto" title="Mode Réarrangement des Pictogrammes">Mode RdP</label>
     <input  id="corriger-picto" type="checkbox" value="" >
@@ -203,7 +203,8 @@ $expression = new expressions();
                     <li><a id="enigmes" class="onglet"><span class="glyphicon glyphicon-question-sign"></span><?= $expression->ENIGMES ?></a></li>
                     <li><a id="elements" class="onglet"><span class="glyphicon glyphicon-tree-conifer"></span><?= $expression->ELEMENTS ?></a></li>
                     <li><a id="parametres" class="onglet" ><span class="glyphicon glyphicon-wrench"></span><?= $expression->PARAMETRES ?></a></li>
-                    <li><a id="editeur" class="onglet"><span class="glyphicon glyphicon-user"></span>EDITEUR (wip)</a></li>
+                    <!--<li><a id="formulaire" class="onglet" ><span class="glyphicon glyphicon-list-alt"></span><?= $expression->FORMULAIRE ?> (wip)</a></li>-->
+                    <!--<li><a id="editeur" class="onglet"><span class="glyphicon glyphicon-user"></span>EDITEUR (wip)</a></li>-->
                     <li><a id="aide" class="onglet"><span class="glyphicon glyphicon-education"></span>AIDE</a></li>
                 </ul>
             <div id="onglet-imports" class="tab">
@@ -378,6 +379,25 @@ $expression = new expressions();
     <script src="jQuery/colorPicker/color_picker-mbA.js"></script>
                     </div>
                 </div>
+                
+                <div id="onglet-formulaire" class="tab">
+                    <div class="panel">
+
+                        <p class="infos">Créer un formulaire</p>
+                        <div id="ajouter-entete"  onmouseup="" >
+                            <span class=" glyphicon glyphicon-plus glyphicon "></span><?= $expression->ajouter ?></div>
+                    
+                    <textarea id="form-enigme" value="question">qsdsd</textarea>
+                    <div id="ajouter-enigme"  onmouseup="$('#html-brut').val('');" >
+                        <span class=" glyphicon glyphicon-plus glyphicon "></span><?= $expression->ajouter ?></div>
+                </div>
+                </div>
+                
+        <script>
+    evenement.ajouteEnteteForm();
+    evenement.ajouteEnigme();
+        </script>
+                
                 <div id="onglet-editeur" class="tab">
                     <div class="panel">
 
