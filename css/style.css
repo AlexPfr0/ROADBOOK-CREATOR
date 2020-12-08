@@ -64,11 +64,14 @@ body{
 
 .panel img{
     opacity: 0.6;
+    border: 1px solid transparent;
 }
 
 .panel img:hover{
     opacity: 1;
-    cursor: move
+    border: 1px solid #000;
+    cursor: move;
+
 }
 
 .panel h3{
@@ -107,6 +110,7 @@ td{
 
 .d_restante{
     font-size: 12px;
+    
 }
 
 .d_parcourue{
@@ -381,7 +385,16 @@ td.commentaire{
     cursor: pointer;
     /*padding: 5px;*/
     color: #fff;
-    font-size: 30px;
+    font-size: 20px;
+    width: 100%
+}
+
+#reinitialiseParametres{
+    background-color: #ff6666;
+    cursor: pointer;
+    /*padding: 5px;*/
+    color: #fff;
+    font-size: 20px;
     width: 100%
 }
 
@@ -405,18 +418,143 @@ td.commentaire{
 
 #outil{
     border: 1px #000 solid;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     border-width: 1px 0px;
     text-align: center;
     display: none;
     vertical-align: middle;
-    font-size: 20px
-
-
+    font-size: 20px;
+    padding: 5px;
 }
+ .outil{
+ background-color: #34495E !important;
+ color: white !important;
+ /*margin-bottom: 10px !important;*/
+ /*padding:2px 3px !important;*/
+ padding: 0 !important;
+ padding: 7px 7px !important;
+ cursor: pointer;
+}
+
+.outil:hover{
+    background-color: #4977b7 !important;
+}
+ 
+ #outil .glyphicon{
+      margin-right: 0 !important;
+ }
+ 
+/* Switch checkbox*/
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 20px;
+}
+.switch-v {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 38px;
+  margin-left: 15px
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+  
+}
+
+.switch-v input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+  
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 2px;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider-v {
+  position: absolute;
+  cursor: pointer;
+  top: 2px;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider-v:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 36px;
+  top: 2px;
+  left: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #34495E;
+}
+input:checked + .slider-v {
+  background-color: green;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+input:focus + .slider-v {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+input:checked + .slider-v:before {
+  -webkit-transform: translateY(16px);
+  -ms-transform: translateY(16px);
+  transform: translateY(16px);
+}
+
+/* fin switch */
 
 input[type=checkbox]{
 
+    /*margin : 0 !important;*/
     /*    position: relative;
         vertical-align: middle;
         bottom: 5px;*/
@@ -434,7 +572,31 @@ input[type=checkbox]{
 
 }
 #corriger-picto{
-    margin-left: 10px;
-    margin-top: 10px;
+/*    margin-left: 10px;
+    margin-top: 10px;*/
 
 }
+
+.aaa{
+    /*background: black;*/
+  /*color: #fff;*/
+  position: relative;  
+  padding: 0 10px 0 10px;
+  /*padding-left: 1px;*/
+  border-right: 1px gray solid;
+  /* optionnel */
+  display: inline-block;
+  /*margin: 30px;*/
+  transform: skewX(-15deg);
+}
+
+.label{
+    background-color: lightgray;
+    color: black;
+}
+
+td.ir-right span, td.ir-right input {
+    opacity: 0;
+}
+
+

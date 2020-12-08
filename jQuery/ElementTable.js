@@ -56,17 +56,17 @@ var elementTable = function (){
     // Génération de chaque ligne d'étape. 
     // Prend en paramètre les données calculées pour l'étape n et n+12
     
-    this.nouvelleLigne = function(num_etape, D_inter, D_restante, D_parcourue, direction, commentaire,
-                                    num_etape2, D_inter2, D_restante2, D_parcourue2, direction2, commentaire2)
+    this.nouvelleLigne = function(num_etape, D_partielle, D_restante, D_parcourue, direction, commentaire,
+                                    num_etape2, D_partielle2, D_restante2, D_parcourue2, direction2, commentaire2)
                                     
     {
      
        if(isNaN(D_parcourue)){
-            D_parcourue = D_restante = D_inter ='';
+            D_parcourue = D_restante = D_partielle ='';
             
         }
         if(isNaN(D_parcourue2)){
-            D_parcourue2 = D_restante2 = D_inter2 ='';
+            D_parcourue2 = D_restante2 = D_partielle2 ='';
             
         }
 //        $('#console').append('<b style="color:#9b59b6;">Génération des étapes : <br/>');
@@ -78,13 +78,13 @@ var elementTable = function (){
         var ligne_RB = '<tr>';
         
          
-        ligne_RB += '<td id="dI-'+num_etape+'" class="d_inter" colspan="3">' + D_inter + '</td>';
+        ligne_RB += '<td id="dI-'+num_etape+'" class="d_inter" colspan="3">' + D_partielle + '</td>';
         ligne_RB += '<td id="dir-'+ num_etape +'" class="direction-image droppable" rowspan="2" >' + direction + '</td>';
         
         ligne_RB += '<td class="commentaire editable" contenteditable="true" id="com-'+ num_etape +'" class="commentaire" rowspan="2">' + commentaire + elementTable.imageElement() + '</td>';
         ligne_RB += '<td class="milieuG"  rowspan="2"></td>';
         ligne_RB += '<td class="milieuD"  rowspan="2"></td>';
-        ligne_RB += '<td id="dI-'+num_etape2+'" class="d_inter" colspan="3">' + D_inter2 + '</td>';
+        ligne_RB += '<td id="dI-'+num_etape2+'" class="d_inter" colspan="3">' + D_partielle2 + '</td>';
         ligne_RB += '<td id="dir-'+ num_etape2 +'" class="direction-image droppable" rowspan="2">' + direction2 + '</td>';
         ligne_RB += '<td class="commentaire editable" contenteditable="true" id="com-'+ num_etape2 +'" class="commentaire" rowspan="2">' + commentaire2 + '</td>';
         ligne_RB += '</tr>';
@@ -100,6 +100,11 @@ var elementTable = function (){
 
         ligne_RB += '</tr>';
         
+        $('.page td.commentaire').css('color', actionCookies.litCookie('_RBC_commentairesColor'));
+        $('.page td.d_restante').css('color', actionCookies.litCookie('_RBC_dRestanteColor'));
+        $('.page td.d_parcourue').css('color', actionCookies.litCookie('_RBC_dParcourueColor'));
+        $('.page td.d_inter').css('color', actionCookies.litCookie('_RBC_dInterColor'));
+        $('.page td').css('border-color', actionCookies.litCookie('_RBC_borderColor'));
         
         
         return ligne_RB;

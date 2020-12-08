@@ -176,6 +176,7 @@ evenement.console("Pictogramme '" + title + "' supprimé", 'okA');
     this.clicImporter = function () {
 
         $('#uploadZone').trigger('click');
+        
 
     };
     
@@ -342,6 +343,8 @@ evenement.console("Mode 'Déplacement' des pictogrammes désactivé", 'infoA');
         });
     };
     
+    
+    
     // Permet de sauvegarder les paramètres.
     // Prend en paramètres le nombre de jours.
 
@@ -360,11 +363,18 @@ evenement.console("Mode 'Déplacement' des pictogrammes désactivé", 'infoA');
             actionCookies.creeCookie('_RBC_User', $('#nom_utilisateur').text(), nbJours);
             $('#RBCuser').text($('#nom_utilisateur').text());
             actionCookies.creeCookie('_RBC_CookiesValidite', $('#validite_cookies').text(), $('#validite_cookies').text());
+            
             actionCookies.creeCookie('_RBC_UniteMesure', $('#unite-mesure').val(), nbJours);
+
             actionCookies.creeCookie('_RBC_ColonneUnique', $('#colonne-unique').val(), nbJours);
             
-console.log($('#validite_cookies').text()) ;
+            actionCookies.creeCookie('_RBC_ValCase_1', $('#valeur_case_1').val(), nbJours);
+            actionCookies.creeCookie('_RBC_ValCase_2', $('#valeur_case_2').val(), nbJours);
+            actionCookies.creeCookie('_RBC_ValCase_3', $('#valeur_case_3').val(), nbJours);
+            
+
         });
+        
     };
     
     this.ajouteEnteteForm = function (){

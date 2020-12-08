@@ -11,18 +11,18 @@ class expressions {
     
     
     
-    public $IMPORTS             = "IMPORTS";
+    public $IMPORTS             = "IMPORTER";
     public $depuis_kurviger     = "Importer des données de <a href=\"https://kurviger.de\" target=\"_blank\">Kurviger</a>";
     public $mode_correction     = "Mode correction";
     public $generer_roadbook    = "Générer le roadbook";
     
-    public $depuis_rbk          = "Importer un projet (.rbk)";
+    public $depuis_rbk          = "Importer un projet";
     public $importer_rbk        = "Importer un projet";
    
     public $importer_picto      = "Importer des pictogrammes";
     public $CHOISIR_CATEGORIE   = "CHOISIR UNE CATEGORIE";
     
-    public $EXPORTS             = "EXPORTS";
+    public $EXPORTS             = "EXPORTER";
     public $titre_export        = "Exportez votre travail";
     public $export_rbk          = "Vous pouvez sauvegarder le roadbook actuel pour reprendre son edition plus tard. Le fichier .rbk généré sera chargeable dans l'onglet \"IMPORT\".";
     public $sauvegarder_projet  = "Sauvegarder le projet";
@@ -46,13 +46,14 @@ class expressions {
     public $pied_page           = "Pied de page";
     public $langage             = "Langage";
     public $appliquer           = "APPLIQUER";
+    public $reinitialise        = "REINITIALISER";
     public $liste_cookies       = "Cookies utlisés";
     
     public $nom_utilisateur     = "Nom d'utilisateur";
-    public $doit_rafraichir     = "Cette option nécessite un rechargement de la page";
+    public $doit_rafraichir     = "Recharger la page (certaines options le nécessite !)";
     public $validite_cookies    = "Validité des cookies (jours)";
     
-    public $unite_mesure        = 'Unités';
+    public $unite_mesure        = 'Unité';
     public $colonne_unique      = 'Colonne unique';
     public $oui                 = "OUI";
     public $non                 = "NON";

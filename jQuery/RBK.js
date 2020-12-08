@@ -91,12 +91,48 @@ var RBK = function () {
         var date = new Date();
         var langage = $('#langage').val();
         var version = $('#RBCversion').text();
-        roadbook[i] = {'RBKdate': date, 'RBKlangage': langage, 'RBKauteur': auteur, 'RBKversion': version};
+        var unite = $('#unite-mesure').val();
+        roadbook[i] = {'RBKdate': date, 'RBKlangage': langage, 'RBKauteur': auteur, 'RBKversion': version, 'RBKunite': unite};
 
 
         return JSON.stringify(roadbook);
 
 
+    };
+    
+    // Fonction permettant de couper le roadbook pour l'enregistrer dans les cookies.
+    // La taille maxi d'un cookie dans un navigateur ne peut pas dépasser 4096 octets.
+    // Avec cette fonction on peut enregistrer 9192 octets de roadbook (8Mo)
+    this.coupeData = function (data, part){
+        var longueur = data.length;
+        var part1 = data.substr(0, 4000);
+        var part2 = data.substr(4000,4000);
+        
+        if(part === 1 ){
+             return  part1;
+        }else if(part === 2 ){
+            return part2;
+        }
+       
+    };
+    
+    // Fonction qui récupère les cookies stockant le roadbook.
+    // Elle prend tout simplement les deux cookies (coupés avec la fonction ci-dessus "coupeData)
+    // et les fusionne.
+    // Ces deux fonctions permettent la sauvegarde rapide du roadbook.
+    this.fusionneData = function (){
+        var part1 = actionCookies.litCookie('_RBK_part1');
+        var part2 = actionCookies.litCookie('_RBK_part2');
+        var dataCookie = part1 + part2;
+        
+        return dataCookie;
+    };
+    
+    this.enregRBKcookie = function (){
+
+        actionCookies.creeCookie('_RBK_nom', $('#nom_roadbook').val(), 365);
+        actionCookies.creeCookie('_RBK_part1', this.coupeData(this.serializeDatas(), 1), 365);
+        actionCookies.creeCookie('_RBK_part2', this.coupeData(this.serializeDatas(), 2), 365);
     };
 
 // ### GENERATION ET TELECHARGEMENT DU FICHIER
@@ -117,6 +153,11 @@ var RBK = function () {
 
         // Trigger the download by simulating click
         a.click();
+        
+actionCookies.creeCookie('_RBK_nom', fileName,365);        
+actionCookies.creeCookie('_RBK_part1',this.coupeData(data,1), 365);
+actionCookies.creeCookie('_RBK_part2',this.coupeData(data,2), 365);
+
 
         // Cleanup
         window.URL.revokeObjectURL(a.href);
@@ -164,7 +205,8 @@ var RBK = function () {
                     // Construction du roadbook
 evenement.console('Fichier RBK chargé','infoA');
                     construireRoadbook.depuisFichierRBK(file.name);
-
+//                    $("td.ir-right span").css('opacity', 1);
+//                    $("td.ir-right input").css('opacity', 1);
                     // Suppression du fichier envoyé
                     // après 5 secondes pour avoir le temps de le lire.
 

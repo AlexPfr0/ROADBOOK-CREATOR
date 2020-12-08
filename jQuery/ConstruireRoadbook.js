@@ -71,7 +71,7 @@ var construireRoadbook = function () {
         
     };
     
-    // Cette fonction permet de formater les data brutes pour ne pas être embêté avec le langage.
+    // Cette fonction permet de formater les data brutes pour ne pas être embêté avec la langue de l'utilsateur de Kurviger.
     this.formateData = function(dataBrute){
         
         // Suivant la langue utlisée dans Kurviger, le pattern pris en compte pour récupérer les 
@@ -106,11 +106,20 @@ var construireRoadbook = function () {
      
     this.depuisDonneesBrutes = function () {
         
+        $("td.ir-right span").css('opacity', 1);
+        $("td.ir-right input").css('opacity', 1);
+        
 evenement.console("Importation données brutes", 'infoA');        
 
         // Récupération des données
 
         var data_brute = this.formateData($("#data-brute").val());
+        var cookieUnite = actionCookies.litCookie("_RBC_UniteMesure");
+//        console.log(cookieUnite);
+        var unite = 1;
+        if (cookieUnite === "imperial"){
+            unite = 1.609;
+        }
 
         try {
 
@@ -133,6 +142,7 @@ evenement.console("Importation données brutes", 'infoA');
             Etape[0].dPartielle = 0;
             
             var dTotale = (lignes[lignes.length - 1]).replace("\t\t", "\t").split("\t")[2] / 1000;
+            dTotale = calculerDistance.TotalDepart(dTotale, unite);
             
             Etape[0].dRestante      = dTotale;
             Etape[0].commentaire    = '';
@@ -163,7 +173,7 @@ evenement.console("Parsing ...", 'infoA');
                     Etape[e] = new Object();
                     Etape[e].numero         = e;
                     Etape[e].escale         = mots[1];
-                    Etape[e].dParcourue     = calculerDistance.Parcourue(mots[2], 'data-brute');
+                    Etape[e].dParcourue     = calculerDistance.Parcourue(mots[2], unite, 'data-brute');
                     Etape[e].dPartielle     = calculerDistance.Partielle(Etape[e].dParcourue, Etape[e - 1].dParcourue, 'data-brute');
                     Etape[e].dRestante      = calculerDistance.Restante(dTotale, Etape[e].dParcourue);
                     Etape[e].commentaire    = '';
@@ -198,13 +208,19 @@ evenement.console("Parsing ...", 'infoA');
                 $('#nom_roadbook').val('');
                 $("#feuille-roadbook").empty();
             }
-            
-            
+            var abbrUnite;
+                if(cookieUnite === 'imperial'){
+                    abbrUnite = 'mi';
+                }else if(cookieUnite === 'metric'){
+                    abbrUnite = 'km';
+                }
 
-            $('#nb_km a').append(dTotale + ' km');
+           $('#nb_km a').append(dTotale + ' ' + abbrUnite);
+            
+            
             $('#nb_etapes a').append(Etape.length - 1 + " " + expression.etapes);
             var pages = ' ' + expression.page;
-                if (nb_page_entiere + 1 <= 1) {
+                if (nb_page_entiere > 1) {
                     pages = ' ' + expression.pages;
                 }
             $('#nb_pages a').append(nb_page_entiere + 1 + pages);
@@ -410,10 +426,26 @@ evenement.imprimerRoadbook();
 
     this.depuisFichierRBK = function (fichierRBK) {
         
+        $("td.ir-right span").css('opacity', 1);
+        $("td.ir-right input").css('opacity', 1);
+        
+//        var cookieUnite = actionCookies.litCookie("_RBC_UniteMesure");
+//        console.log(cookieUnite);
+        var uniteX = 1;
+//        if (cookieUnite === "imperial"){
+//            uniteX = 1.609;
+//        }else{
+//           uniteX = 1; 
+//        }
+
+
+
+        
                 var auteur  = '';
                 var date    = '';
                 var langage = '';
                 var version = '';
+                var unite   = '';
 
         try {
             
@@ -441,16 +473,21 @@ evenement.console("Calculs ...", 'infoA');
                     Etape[i].direction      = nouvelleLigne.i;
                     Etape[i].commentaire    = nouvelleLigne.c;
                     }else{
+                       
                         auteur  = nouvelleLigne.RBKauteur;
                         date    = nouvelleLigne.RBKdate;
                         langage = nouvelleLigne.RBKlangage;
                         version = nouvelleLigne.RBKversion;
+                        unite   = nouvelleLigne.RBKunite;
+                        
+                       
                     }
 
 
 
                 });
-                
+    
+
             
 
 // Initialisation des variables
@@ -523,7 +560,7 @@ evenement.console("Ajout des données dans le roadbook...", 'infoA');
                             nb_etape++;
 // Les fonctions de calculs se situent dans le fichier "calculerDistances.js" 
 // GENERATION DE LA PREMIERE COLONNE DE LA FEUILLE
-                            D_parcourue = calculerDistance.Parcourue(Etape[i].distance, 'rbk');
+                            D_parcourue = calculerDistance.Parcourue(Etape[i].distance, uniteX, 'rbk');
 
 // Si i = t c'est qu'on est à la première ligne de la feuille.
 // Il faudra donc se décaler dans le tableau pour certains calculs.
@@ -565,7 +602,7 @@ evenement.console("Ajout des données dans le roadbook...", 'infoA');
 // GENERATION DE LA SECONDE COLONNE DE LA FEUILLE                 
                         if (Etape[i + 12].distance !== '9999') {
                             nb_etape++;
-                            D_parcourue2    = calculerDistance.Parcourue(Etape[i + 12].distance, 'rbk');
+                            D_parcourue2    = calculerDistance.Parcourue(Etape[i + 12].distance, uniteX, 'rbk');
                             D_partielle2    = calculerDistance.Partielle(Etape[i + 12].distance, Etape[i + 12 - 1].distance, 'rbk');
                             D_restante2     = calculerDistance.Restante(D_totale, D_parcourue2);
 
@@ -610,13 +647,29 @@ evenement.console("Ajout des données dans le roadbook...", 'infoA');
                 $('#RBKdate').text(date);
                 $('#RBKversion').text(version);
                 
-                $('#nb_km a').append(D_totale + ' km');
+                
+                $('#unite-mesure option[value="'+unite+'"]').prop('selected', true);
+                
+                var abbrUnite;
+                if(unite === 'imperial'){
+                    abbrUnite = 'mi';
+                }else if(unite === 'metric'){
+                    abbrUnite = 'km';
+                }else{
+                    abbrUnite = 'km';
+                    evenement.console('Unité de mesure absente');
+                    evenement.console('-> unité métrique par défaut');
+                    $('#unite-mesure option[value="metric"]').prop('selected', true);
+                    
+                }
+                
+                $('#nb_km a').append(D_totale + ' ' + abbrUnite);
                 $('#nb_etapes a').append(nb_etape + " " + expression.etapes);
 
                 $('#nom_roadbook').val(fichierRBK.replace('.rbk', ''));
 
                 var pages = ' ' + expression.page;
-                if (nb_page_entiere + 1 <= 1) {
+                if (nb_page_entiere > 1) {
                     pages = ' ' + expression.pages;
                 }
                 $('#nb_pages a').append(nb_page_entiere + pages);
@@ -630,6 +683,264 @@ evenement.console("Terminé ...", 'okA');
 
         } catch (erreur) {  
             console.log('Une erreur est survenue');
+            $("#feuille-roadbook").append(elementTable.ligneErreur(erreur));
+
+        }
+        
+
+    };
+    
+    
+        this.depuisCookie = function () {
+        
+        $("td.ir-right span").css('opacity', 1);
+        $("td.ir-right input").css('opacity', 1);
+        
+        var uniteX = 1;
+
+                var auteur  = '';
+                var date    = '';
+                var langage = '';
+                var version = '';
+                var unite   = '';
+
+        try {
+            
+evenement.console("Récupération des données depuis le serveur", 'infoA');
+                
+                // Récupération et fusion des données stockées dans
+                // les cookies.
+                var roadbook = oRBK.fusionneData();
+
+                // Vidage du tableau
+                $("#feuille-roadbook").empty();
+
+                // Création du tableau qui accueillera chaque étape dans un objet
+                var Etape = new Array();
+
+evenement.console("Calculs ...", 'infoA');
+//        Parcours du fichier RBK au format JSON
+                $.each($.parseJSON(roadbook), function (i, nouvelleLigne) {
+                    
+                    if (typeof nouvelleLigne.RBKauteur === 'undefined') {
+                     //            Pour chaque nouvelle entrée, on crée un nouveau object Etape + son index
+                    Etape[i] = new Object();
+
+                    Etape[i].distance       = nouvelleLigne.d;
+                    Etape[i].direction      = nouvelleLigne.i;
+                    Etape[i].commentaire    = nouvelleLigne.c;
+                    }else{
+                       
+                        auteur  = nouvelleLigne.RBKauteur;
+                        date    = nouvelleLigne.RBKdate;
+                        langage = nouvelleLigne.RBKlangage;
+                        version = nouvelleLigne.RBKversion;
+                        unite   = nouvelleLigne.RBKunite;
+                        
+                       
+                    }
+
+
+
+                });
+    
+
+            
+
+// Initialisation des variables
+                var D_partielle     = '';
+                var num_etape       = 0;
+                var D_restante      = '';
+
+                var D_parcourue     = '';
+                var direction       = '';
+                var commentaire     = '';
+
+                var D_partielle2    = '';
+                var num_etape2      = 0;
+                var D_restante2     = '';
+
+                var D_parcourue2    = '';
+                var direction2      = '';
+                var commentaire2    = '';
+
+// Cette variable servira dans la boucle pour parcourir le tableau d'objet.
+// Le modulo n'est pas vraiment indispensable, il a surtout servi pour générer
+// le fichier
+                var nb_page_entiere = (Etape.length - (Etape.length % 24)) / 24;
+
+                var D_totale = 0;
+
+// Triage du tableau d'objet, préparation pour le parcourir
+// J'utlise 9999 pour ignorer les étapes vides. Ce 9999 est généré
+// quand la case est vide quand on sauvegarde. Il vaut mieux prendre un
+// nombre si on veut le remplacer.
+                for (var d = 0; d < Etape.length; d++) {
+
+                    if (Etape[d].distance !== '9999') {
+                        if (D_totale - Etape[d].distance < 0) {
+                            D_totale = Etape[d].distance;
+                        }
+                    }
+                }
+
+// Triage à proprement dit du tablleau
+                Etape.sort(function (a, b) {
+                    const distance1 = a.distance;
+                    const distance2 = b.distance;
+
+                    return distance1 - distance2;
+                });
+
+// La variable t permet de se décaler dans le tableau après chaque feuille générée
+// Le fait de mettre les données sur deux colonnes a demandé un peu de gymnastique ^^
+                var t = 0;
+                var nb_etape = -1;
+
+// La variable n est la représentation du nombre de page.
+// On l'initialise à un pour pouvoir afficher le numéro sans 
+// bidouillage. Ici, pour chaque page (nb_page_entiere, cf plus haut)
+                for (var n = 1; n <= nb_page_entiere; n++) {
+evenement.console("Calculs page " + n +" ...", 'infoA');
+// Création de l'entête de la page
+                    $("#feuille-roadbook").append('<table class="page" id="page-' + n + '">');
+                    
+evenement.console("Entête générée", 'okA');                    
+                    $("#page-" + n).append(elementTable.entete());
+                    
+evenement.console("Ajout des données dans le roadbook...", 'infoA');
+// Nous allons mettre 24 étapes par page, sur deux colonnes, soit 12 lignes
+                    for (var i = t; i < 12 + t; i++) {
+                        
+// On ignore les valeurs distance à 9999 (cf plus haut)
+                        if (Etape[i].distance !== '9999') {
+                            nb_etape++;
+// Les fonctions de calculs se situent dans le fichier "calculerDistances.js" 
+// GENERATION DE LA PREMIERE COLONNE DE LA FEUILLE
+                            D_parcourue = calculerDistance.Parcourue(Etape[i].distance, uniteX, 'rbk');
+
+// Si i = t c'est qu'on est à la première ligne de la feuille.
+// Il faudra donc se décaler dans le tableau pour certains calculs.
+                            if (i === t) {
+                                if (t === 0) {
+                                    D_partielle = calculerDistance.Partielle(Etape[i].distance, Etape[i].distance, 'rbk');
+
+                                } else {
+                                    D_partielle = calculerDistance.Partielle(Etape[i].distance, Etape[i - 1].distance, 'rbk');
+                                }
+
+
+                            } else {
+
+                                D_partielle = calculerDistance.Partielle(Etape[i].distance, Etape[i - 1].distance, 'rbk');
+                            }
+
+                            D_restante = calculerDistance.Restante(D_totale, D_parcourue);
+
+                            (Etape[i].direction === 'null') ? direction = '' : direction = elementTable.creerImageDirection(Etape[i].direction);
+                            ;
+
+                            commentaire = Etape[i].commentaire;
+
+                        }
+// Si la la distance est 9999 (soit vide à la génération),
+// on initialise les valeur à rien, soit vide. (sauf pour le n° d'étape)
+                        else {
+
+                            D_restante  = '';
+                            D_parcourue = '';
+                            D_partielle = '';
+                            direction   = '';
+                            commentaire = '';
+                        }
+
+                        num_etape = i;
+
+// GENERATION DE LA SECONDE COLONNE DE LA FEUILLE                 
+                        if (Etape[i + 12].distance !== '9999') {
+                            nb_etape++;
+                            D_parcourue2    = calculerDistance.Parcourue(Etape[i + 12].distance, uniteX, 'rbk');
+                            D_partielle2    = calculerDistance.Partielle(Etape[i + 12].distance, Etape[i + 12 - 1].distance, 'rbk');
+                            D_restante2     = calculerDistance.Restante(D_totale, D_parcourue2);
+
+                            (Etape[i + 12].direction === 'null') ? direction2 = '' : direction2 = elementTable.creerImageDirection(Etape[i + 12].direction);
+
+                            //direction2 = elementTable.creerImageDirection(Etape[i+12].direction);
+                            commentaire2 = Etape[i + 12].commentaire;
+
+                        } else {
+                            D_restante2     = '';
+                            D_parcourue2    = '';
+                            D_partielle2    = '';
+                            direction2      = '';
+                            commentaire2    = '';
+                            
+                           
+                        }
+
+                        num_etape2 = num_etape + 12;
+
+                        $("#page-" + n).append(elementTable.nouvelleLigne(num_etape,
+                                D_partielle, D_restante, D_parcourue, direction, commentaire,
+                                num_etape2, D_partielle2, D_restante2, D_parcourue2, direction2, commentaire2));
+
+                    }
+
+                    t += 24;
+
+                    num_etape   += 12;
+                    num_etape2  += 12;
+                    $("#page-" + n).append(elementTable.ligneVide(2, 'Page ' + n + ' - Généré avec ROADBOOK CREATOR by Alex', 'https://roadbook.alexp.fr'));
+                    $("#page-" + n).append('</table>');
+
+                }
+
+                $('#nb_km a').empty();
+                $('#nb_etapes a').empty();
+                $('#nb_pages a').empty();
+                
+                $('#RBKlangage').text(langage);
+                $('#RBKauteur').text(auteur);
+                $('#RBKdate').text(date);
+                $('#RBKversion').text(version);
+                
+                
+                $('#unite-mesure option[value="'+unite+'"]').prop('selected', true);
+                
+                var abbrUnite;
+                if(unite === 'imperial'){
+                    abbrUnite = 'mi';
+                }else if(unite === 'metric'){
+                    abbrUnite = 'km';
+                }else{
+                    abbrUnite = 'km';
+                    evenement.console('Unité de mesure absente');
+                    evenement.console('-> unité métrique par défaut');
+                    $('#unite-mesure option[value="metric"]').prop('selected', true);
+                    
+                }
+                
+                $('#nb_km a').append(D_totale + ' ' + abbrUnite);
+                $('#nb_etapes a').append(nb_etape + " " + expression.etapes);
+
+                $('#nom_roadbook').val(actionCookies.litCookie('_RBK_nom').replace('.rbk', ''));
+
+                var pages = ' ' + expression.page;
+                
+                if (nb_page_entiere > 1) {
+                    pages = ' ' + expression.pages;
+                }
+                $('#nb_pages a').append(nb_page_entiere + pages);
+                
+            evenement.DragDropImage(false);
+            evenement.supprimeImageDirection();
+            evenement.imprimerRoadbook();
+//            });
+            
+evenement.console("Terminé ...", 'okA');
+
+        } catch (erreur) {  
+            console.log('Une erreur est survenue :' + erreur);
             $("#feuille-roadbook").append(elementTable.ligneErreur(erreur));
 
         }

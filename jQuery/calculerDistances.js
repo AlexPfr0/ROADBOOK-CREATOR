@@ -53,11 +53,18 @@ var calculerDistance = function(nbDecimales = 3){
          
         return dRestante;
     };
+    
+// Calcul et formatage de la valeur de départ (1ère ligne, 1ère colonne)
+    this.TotalDepart = function(dTotal,unite){
+        var dTotalDepart = (dTotal / unite).toFixed(nbDecimales);
+        return  dTotalDepart;
+    };
 
 // Calcul de la distance parcourue
 // La distance parcourue est la base des calculs 
 // Elle se trouve dans les données récupérées sur Kurviger
-    this.Parcourue = function(dActu, from){
+// La variable 'unite' permet de convertir le résultat en unité impériale, le mile.
+    this.Parcourue = function(dActu, unite, from){
         
         if(from === 'rbk'){
             var div = 1;
@@ -67,7 +74,7 @@ var calculerDistance = function(nbDecimales = 3){
             var div = 1000;
         }
         
-        var dParcourue = (dActu/div).toFixed(nbDecimales);
+        var dParcourue = (dActu/div/unite).toFixed(nbDecimales);
 //        $('#console').append('<b style="color:#f1c40f">Calcul dParcourue :</b> ' + dActu + '/' + div + '->' + dParcourue + '<br>');
          
         return dParcourue;

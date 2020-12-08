@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-
 <?php
+
 ini_set('display_errors', 1);
 
 include 'fonctions/fonctions.php';
@@ -23,10 +22,18 @@ $validite_cookies_COOKIE        = filter_input(INPUT_COOKIE, '_RBC_CookiesValidi
 $unite_mesure_COOKIE            = filter_input(INPUT_COOKIE, '_RBC_UniteMesure');
 $colonne_unique_COOKIE          = filter_input(INPUT_COOKIE, '_RBC_ColonneUnique');
 
+$valeur_case_1_COOKIE           = filter_input(INPUT_COOKIE, '_RBC_ValCase_1');
+$valeur_case_2_COOKIE           = filter_input(INPUT_COOKIE, '_RBC_ValCase_2');
+$valeur_case_3_COOKIE           = filter_input(INPUT_COOKIE, '_RBC_ValCase_3');
+
 // Si le cookie existe, alors on règle le paramètre avec ce dernier.
+
+
+
 if (isset($langage_COOKIE)) {
-    $reglage->langage = $langage_COOKIE;
+    $reglage->langage = $langage_COOKIE;   
 }
+
 if (isset($decimal_COOKIE)) {
     $reglage->decimal = $decimal_COOKIE;
 }
@@ -56,9 +63,25 @@ if (isset($validite_cookies_COOKIE)) {
 }
 if (isset($unite_mesure_COOKIE)) {
     $reglage->unite_mesure = $unite_mesure_COOKIE;
+    
+    if($unite_mesure_COOKIE === 'imperial'){
+    $reglage->unite_abbrev = 'mi';}
+        else{
+    $reglage->unite_abbrev = 'km'; 
+        }
+    
 }
 if (isset($colonne_unique_COOKIE)) {
     $reglage->colonne_unique = $colonne_unique_COOKIE;
+}
+if (isset($valeur_case_1_COOKIE )) {
+     $reglage->valeur_case_1 = $valeur_case_1_COOKIE;
+}
+if (isset($valeur_case_2_COOKIE )) {
+    $reglage->valeur_case_2 = $valeur_case_2_COOKIE;
+}
+if (isset($valeur_case_3_COOKIE )) {
+     $reglage->valeur_case_3 = $valeur_case_3_COOKIE;
 }
 
 
@@ -68,7 +91,7 @@ if (isset($colonne_unique_COOKIE)) {
 require 'langages/' . $reglage->langage . '.php';
 $expression = new expressions();
 ?>
-
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -82,7 +105,7 @@ $expression = new expressions();
 
 
 
-        <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -118,6 +141,8 @@ $expression = new expressions();
         <script src="jQuery/ActionCookies.js"></script>
         <script>actionCookies = new ActionCookie();</script>
         
+      
+        
 <!--       Initialisation de la langue côté client.
        Pour tout ce qui est généré avec javascript-->
         <script src="langages/<?= $reglage->langage ?>.js"></script>
@@ -136,7 +161,24 @@ $expression = new expressions();
         <title>ROADBOOK CREATOR - by Alex</title>
         <link href="images/logoRBC.png" rel="shortcut icon" type="image/x-icon" />
         
-        
+        <style>
+            .d_restante{
+                    color: <?= $reglage->couleur_d_restante?>;
+            }
+            .d_inter{
+                    color: <?= $reglage->couleur_d_inter?>;
+            }
+            .d_parcourue{
+                    color: <?= $reglage->couleur_d_parcourue?>;
+            }
+            .page td{
+                    border-color: <?= $reglage->couleur_lignes?>;
+            }
+            .commentaires{
+                    color: <?= $reglage->couleur_commentaires?>;
+            }
+            
+        </style>
        
     </head>     
 
@@ -153,24 +195,26 @@ $expression = new expressions();
     <table id="toolbar">
         <tr>
             <td class="ir-left" >
-                <a href="#toolbar" ><span class="glyphicon glyphicon-fullscreen"></span></a>
-                <a id="affiche-outil"><span class="glyphicon glyphicon-plus"></span></a>
+                <a href="#toolbar" title="\"\Plein écran""><span class="glyphicon glyphicon-fullscreen"></span></a>
+                <a id="affiche-outil" title="Afficher les outils supplémentaires"><span class="glyphicon glyphicon-plus"></span></a>
                 <script>evenement.afficheOutils();</script>
-                <span><a id="RBCversion">v. <?= $reglage->BRC_version ?></a></span>
+                <!--<span><a id="RBCversion">v. <?= $reglage->BRC_version ?></a></span>-->
                 <span><a id="RBCuser"><b><?= $reglage->nom_utilisateur ?></b></a></span>
             </td>
 
             <td class="ir-right">
                 <span class="glyphicon glyphicon-file" id="fichier"></span>
-                <span class="" id="RBKauteur"></span> / 
-                <span class="" id="RBKversion"></span> / 
-                <span class="" id="RBKdate"></span> / 
-                <span class="" id="RBKlangage"></span> / 
+                <span title="Auteur du roadbook chargé" class="aaa"><span class="label">auteur</span><br/><span class="" id="RBKauteur"></span></span>
+                <span title="Version du roadbook chargé" class="aaa"><span class="label">version</span><br/><span class="" id="RBKversion"></span></span>
+                <span title="Date du roadbook chargé" class="aaa"><span class="label">date</span><br/><span class="" id="RBKdate"></span></span>
+                <span  title="Langue du roadbook chargé" class="aaa"  style="border-right: none"><span   class="label">langue</span><br/><span class="" id="RBKlangage"></span></span>
 
-                <input placeholder="<?= $expression->nom_rb ?>" id="nom_roadbook" type="text" value="" />
-                <span class="glyphicon glyphicon-flag" id="nb_etapes"><a></a></span>
-                <span class="glyphicon glyphicon-road" id="nb_km"><a></a></span>
-                <span class="glyphicon glyphicon-list-alt" id="nb_pages"><a></a></span>
+                <input class="" placeholder="<?= $expression->nom_rb ?>" id="nom_roadbook" type="text" value="" />
+                <span style="font-size:1.1em">
+                    <span class="label glyphicon glyphicon-flag" id="nb_etapes"><a></a></span>
+                <span class="label glyphicon glyphicon-road" id="nb_km"><a></a></span>
+                <span class="label glyphicon glyphicon-list-alt" id="nb_pages"><a></a></span>
+                </span>
             </td>
         </tr>
     </table>
@@ -178,15 +222,16 @@ $expression = new expressions();
 
 <!--Barre d'outils (cachée par défaut)-->
 <div id="outil">
-| 
-    <input type="text" id="mode-correction-picto"  value="inactif" hidden="" />
-    <label id="for-corriger-picto" for="corriger-picto" title="Mode Réarrangement des Pictogrammes">Mode RdP</label>
-    <input  id="corriger-picto" type="checkbox" value="" >
-<!--Appel du script qui écoute la checkbox "modification des pictos -->
-    <script>   
-        evenement.activeCorrectionPicto();
-    </script> 
-
+    <span title="Activer pour permettre le déplacement des pictogrammes dans le roadbook." class="outil glyphicon glyphicon-move"><input type="text" id="mode-correction-picto"  value="inactif" hidden="" />
+        <label class="switch" style="margin-bottom: 0px;top: -2px;bottom: 0px;">
+            <input  id="corriger-picto" type="checkbox" value="" >
+            <span class="slider"></span>
+        </label><script>
+            evenement.activeCorrectionPicto();
+        </script>
+    </span>
+    <span title="Sauvegarde rapide. Le roadbook est enregistré dans les cookies." class="outil glyphicon glyphicon-floppy-disk" onclick="oRBK.enregRBKcookie()"> </span>
+    <span title="Récupérer les dernier roadbook sauvegardé (depuis les cookies)." class="outil glyphicon glyphicon-time" onclick="construireRoadbook.depuisCookie(actionCookies.litCookie('_RBK_DernierRB'))"> </span>
 </div>
 
 <table>
@@ -227,13 +272,30 @@ $expression = new expressions();
                                     <textarea title="Coller le contenu du presse-papier ici" id="data-brute"></textarea>
                                 </td>
                                 <td>
-                                    <div class="checkbox">
+<!--                                    <div class="checkbox">
                                         <input type="text" id="mode-correction"  value="inactif" hidden="" />
                                         <input id="corriger-distances" type="checkbox" value="" disabled>
                                         <label id="for-corriger-distances" for="corriger-distances"><?= $expression->mode_correction ?></label>
-                                    </div>
+                                    </div>-->
+                                    
+           
+<input type="text" id="mode-correction"  value="inactif" hidden="" />
+<label title="Activer pour basculer en mode correction de distance" class="switch-v" style="margin-bottom: 0px;top: -2px;bottom: 0px;">
+            <input  id="corriger-distances" type="checkbox" value="" >
+            <span class="slider-v" > </span>
+        </label>
+         
+             
+
+           
+        <script>
+            evenement.activeCorrectionPicto();
+        </script>
+    
                                 </td>
+                                
                             </tr>
+                            <tr><td colspan="3"></td></tr>
                         </table>
             <script>
     evenement.activeCorrection();
@@ -245,15 +307,17 @@ $expression = new expressions();
             
                         <hr class="panel-separateur">
 
-                        <h4><b><?= $expression->depuis_rbk ?></b></h4>
+                        
+                        <div onclick="evenement.clicImporter()" id="import-rbk">
+                            <span class="glyphicon glyphicon-floppy-open"></span><?= $expression->depuis_rbk ?>
+                        </div>
                         <form id="uploadZone" class="dropzone" action="" enctype="multipart/form-data" method="POST"></form>
                         
             <script>
     oRBK.charge();
+      
             </script>    
-                        <div onclick="evenement.clicImporter()" id="import-rbk">
-                            <span class="glyphicon glyphicon-floppy-open"></span><?= $expression->importer_rbk ?>
-                        </div>
+                        
 
                         <hr class="panel-separateur">
                         
@@ -264,7 +328,7 @@ $expression = new expressions();
 
                                 <select name="categorie" id="cat-select">
                                     <option value=''>- <?= $expression->CHOISIR_CATEGORIE ?> -</option>
-                                    <option value="directions" id="cat-direction" class="cat"><span class="glyphicon glyphicon-hand-right"></span><?= $expression->DIRECTIONS ?></option>
+                                    <option value="directions" id="cat-direction" class="cat glyphicon glyphicon-floppy-open"><span class="glyphicon glyphicon-hand-right"></span><?= $expression->DIRECTIONS ?></option>
                                     <option value="rondpoints" id="cat-rp" class="cat"><span class="glyphicon glyphicon-record"></span><?= $expression->RONDS_POINTS ?></option>
                                     <option value="panneaux" id="cat-panneaux" class="cat"><span class="glyphicon glyphicon-warning-sign"></span><?= $expression->PANNEAUX ?></option>
                                     <option value="enigmes" id="cat-enigmes" class="cat"><span class="glyphicon glyphicon-question-sign"></span><?= $expression->ENIGMES ?></option>

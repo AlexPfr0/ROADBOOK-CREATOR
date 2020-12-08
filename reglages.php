@@ -19,10 +19,18 @@ class reglages {
     public $pied_page = "";
     public $nom_utilisateur = "Inconnu";
     public $validite_cookies = 15;
-    public $BRC_version = "2020.06";
+    public $BRC_version = "2020.12";
     
     public $unite_mesure = "metric" ;
+    public $unite_abbrev = "km";
+    
     public $colonne_unique = "non";
+    
+    public $valeurs_distances = array("Intermediaire","Restante","Parcourue");
+    
+    public $valeur_case_1 = "Partielle";
+    public $valeur_case_2 = "Restante";
+    public $valeur_case_3 = "Parcourue";
     
     public function verif($cookie, $defaut) {
         
