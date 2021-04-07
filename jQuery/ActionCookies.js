@@ -1,5 +1,5 @@
-// Cette classe ne contient qu'une seule fonction : 
-// créer les cookies quand on applique les paramètres
+// Ce fichier contient la classe qui gère les cookies en JS
+// Créer, lire, supprimer, lister
 
 var ActionCookie = function () {
 
@@ -34,5 +34,28 @@ var ActionCookie = function () {
      return null;
    
     };
+    
+    this.supprimeTout = function(){
+        
+    var cookies = document.cookie.split(';');
+
+    for (var i = 0 ; i < cookies.length; i++) {
+        
+        var nomCookie = cookies[i].split('=')[0];
+        this.creeCookie(nomCookie,'',-1);
+}
+    oNotif.success('Les cookies ont bien été supprimés');    
+
+
+    };
+    
+    this.listeTout = function() {
+    var theCookies = document.cookie.split(';');
+    var aString = '';
+    for (var i = 1 ; i <= theCookies.length; i++) {
+        aString += i + ' ' + theCookies[i-1] + "\n";
+    }
+    return aString;
+}
 };
         

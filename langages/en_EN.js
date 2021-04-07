@@ -26,7 +26,9 @@ var Langage = function(){
         
         this.etapes = 'waypoints';
         this.page = "page";
-        this.pages = "pages";
+    this.pages = "pages";
+
+    this.nomProjet = "Project name";
 
     
 };

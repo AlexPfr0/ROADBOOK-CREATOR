@@ -20,6 +20,13 @@
     background-color: #666;
     color: #fff;}
 
+/*.entete td.inv{
+    background-color: white;
+    color: white;
+    border-left-color: white !important;
+    border-right-color : white !important;
+    border-top-color : white !important;
+}*/
 
 img{
     height:74px;
@@ -36,6 +43,7 @@ td{
     width : 100px;
     
 }
+
 
 .num_etape{
    font-size: 12px; 

@@ -19,7 +19,7 @@ class expressions {
     public $depuis_rbk          = "Importer un projet";
     public $importer_rbk        = "Importer un projet";
    
-    public $importer_picto      = "Importer des pictogrammes";
+    public $importer_picto = "Ajouter des pictogrammes";
     public $CHOISIR_CATEGORIE   = "CHOISIR UNE CATEGORIE";
     
     public $EXPORTS             = "EXPORTER";
@@ -34,12 +34,13 @@ class expressions {
     public $ENIGMES             = "ENIGMES & WAYPts";
     public $ELEMENTS            = "ELEMENTS";
     public $PARAMETRES          = "PARAMETRES";
-    public $FORMULAIRE          = "FORMULAIRE";
+    public $ANNEXE = "ANNEXE";
+    public $AIDE = "AIDE";
     public $ajouter             = "Ajouter";
     public $chiffres_virgule    = " Chiffre(s) après la virgule";
     public $couleurs            = "Couleurs";
     public $lignes_rb           = "Lignes du roadbook";
-    public $d_inter             = "Distances intermédiaires";
+    public $d_inter = "Distances partielles";
     public $d_parcourue         = "Distances parcourues";
     public $d_restante          = "Distances restantes";
     public $commentaires        = "Commentaires";
@@ -51,15 +52,31 @@ class expressions {
     
     public $nom_utilisateur     = "Nom d'utilisateur";
     public $doit_rafraichir     = "Recharger la page (certaines options le nécessite !)";
-    public $validite_cookies    = "Validité des cookies (jours)";
-    
+    public $validite_cookies = "Expiration des cookies (jours)";
     public $unite_mesure        = 'Unité';
     public $colonne_unique      = 'Colonne unique';
     public $oui                 = "OUI";
     public $non                 = "NON";
     
-    public $unites              = ['Métrique', 'Impériale'];
-    
-    
+    public $unites = ['Métrique', 'Impériale'];
+    public $valeur_principale = "Valeur principale (distance)";
+    public $parcourue = "Parcourue";
+    public $partielle = "Partielle";
+    public $supprimer_cookies = "Supprimer les cookies (double clic)";
+    public $creer_nouv_picto = "Créer un nouveau pictogramme";
+    public $creer_annexe = "Créer l'annexe";
+    public $ajouter_enigme = "Ajouter une énigme";
+    public $retirer_enigme = "Retirer une énigme";
+    public $enregistrer_annexe = "Enregistrer l'annexe";
+    public $recuperer_annexe = "Récupérer une annexe";
+    public $numero_enigme = "Numéro de l'énigme";
+    public $IB_collerPP = "Coller le contenu du presse-papier ici";
+    public $IB_afficher_outils = "Afficher les outils";
+    public $IB_activer_DPR = "Activer pour permettre le déplacement des pictogrammes dans le roadbook";
+    public $IB_sauvegarde_RB_cookies = "Sauvegarde rapide : le roadbook est enregistré dans les cookies";
+    public $IB_recuperer_RB_cookies = "Récupérer le dernier roadbook sauvegardé (depuis les cookies)";
+    public $IB_activer_correction_distance = "Activer pour basculer en mode correction de distances";
+    public $plein_ecran = "Mode sans distraction";
+
 }
 

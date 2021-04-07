@@ -79,7 +79,7 @@
     </tr>
     <tr>
         <td class="descriptions">
-            <?= $expression->colonne_unique ?> (wip)
+            <?= $expression->colonne_unique ?>
         </td>
         <td class="valeurs"> 
 
@@ -99,7 +99,30 @@
         </td>
 
     </tr>   
+    <tr>
+        <td class="descriptions">
+            <?= $expression->valeur_principale ?>
+        </td>
+        <td id="" class="valeurs" >
 
+
+            <select id="valeur_case_1">
+                <option <?php
+                if ($reglage->valeur_case_1 == 'DParcourue') {
+                    echo ' selected="selected" ';
+                }
+                ?> value="DParcourue"><?= $expression->parcourue ?></option>
+                <option <?php
+                if ($reglage->valeur_case_1 == 'DPartielle') {
+                    echo ' selected="selected" ';
+                }
+                ?> value="DPartielle"><?= $expression->partielle ?></option>
+
+            </select>
+
+
+        </td>
+    </tr>
 
 
     <tr>
@@ -185,84 +208,26 @@
         </td>
         <td id="validite_cookies" class="valeurs" contenteditable="true"><?= $reglage->validite_cookies ?></td>
     </tr>
+
     <tr>
         <td class="descriptions">
-            Valeur case 1
+
         </td>
         <td id="" class="valeurs" >
-            <select id="valeur_case_1">
-                <?
-                $distances_types_liste = $reglage->valeurs_distances;
-                $option = '';
-                foreach ($distances_types_liste as $distance_type){
-                    $option .= '<option';
-                    if ($reglage->valeur_case_1 == $distance_type) {
-                    $option .= ' selected="selected" ';
-                }
-                    $option .= ' value="'.$distance_type.'">';
-                    $option .= $distance_type;
-                    $option .= '</option>';
-                    
-                }
-                echo $option;
-                
-                ?>
-            </select>
+
         </td>
     </tr>
     <tr>
         <td class="descriptions">
-            Valeur case 2
-        </td>
-        <td id="" class="valeurs" >
-           <select id="valeur_case_2">
-                <?
-                
-                $option = '';
-                foreach ($distances_types_liste as $distance_type){
-                    $option .= '<option';
-                    if ($reglage->valeur_case_2 == $distance_type) {
-                    $option .= ' selected="selected" ';
-                }
-                    $option .= ' value="'.$distance_type.'">';
-                    $option .= $distance_type;
-                    $option .= '</option>';
-                    
-                }
-                echo $option;
-                
-                ?>
-            </select> 
-        </td>
-    </tr>
-    <tr>
-        <td class="descriptions">
-            Valeur case 3
+
         </td>
         <td id="" class="valeurs">
-            <select id="valeur_case_3">
-                <?
-                
-                $option = '';
-                foreach ($distances_types_liste as $distance_type){
-                    $option .= '<option';
-                    if ($reglage->valeur_case_3 == $distance_type) {
-                    $option .= ' selected="selected" ';
-                }
-                    $option .= ' value="'.$distance_type.'">';
-                    $option .= $distance_type;
-                    $option .= '</option>';
-                    
-                }
-                echo $option;
-                
-                ?>
-            </select>
+
         </td> 
     </tr>
     <tr>
         <td  colspan="2" >
-            <div id="appliqueParametres"><?= $expression->appliquer ?></div>
+            <div id="appliqueParametres" class="bouton noselect"><?= $expression->appliquer ?></div>
 
             <script>
                 var validiteCookies = $('#validite_cookies').text();
@@ -271,37 +236,17 @@
         </td>
 
     </tr>
-
-    <tr>
-        <td  colspan="2" class="section" >
-            A faire
-        </td>
-    </tr> 
-    <tr>
+     <tr>
         <td  colspan="2" >
+            <div id="supprimerCookies"><?= $expression->supprimer_cookies ?></div>
 
+            <script>
+                evenement.supprimerCookies();
+            </script> 
         </td>
-    </tr> 
-    <tr>
-        <td  colspan="2" >
-            <?= $expression->liste_cookies ?>
-        </td>
-    </tr>
-    <tr>
-        <td class="descriptions">
 
-        </td>
-        <td class="valeurs"> 
+    </tr>
 
-        </td>
-    </tr>
-    <tr>
-        <td class="descriptions">
-            <?= $expression->liste_cookies ?>
-        </td>
-        <td class="valeurs"> 
-            Oui
-        </td>
-    </tr>
+    
 </table>
 

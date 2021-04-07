@@ -1,17 +1,19 @@
-//Cette classe permet de construire le roadbook. Elle contient deux fonctions pour
-//cas différents : 
+// Cette classe permet de construire le roadbook sur DEUX COLONNES. Elle contient les fonctions pour
+// 3 cas différents :
 //        - Quand on veux faire un roadbook à partir des données brutes venant du site Kurviger
 //        - Quand on veux faire un roadbook à partir d'un fichier RBK, fichier de sauvegarde
 //            généré par l'application elle-même.
+//        - On peut également construire le roadbook depuis l'enregistrement dans les cookies (lourd et peu fiable)
 
 
-var construireRoadbook = function () {
+var ConstruireRoadbook = function () {
     
     this.getCookie = function(name) {
 	    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
 	    return v ? v[2] : null;
 	};
-    
+
+    //
     this.motCleInit = function(langage){
         
         var mots = new Array();
@@ -80,10 +82,13 @@ var construireRoadbook = function () {
         var data;
         var motEscale   = ['Escale', 'Wegpunkt', 'Waypoint', 'Pasando', 'Marker', 'Σημείο'];
         var motArrivee  = ['Arrivée', 'Ziel', 'Arrive', 'recorrido', 'Bestemming', 'Άφιξη'];
-        
+
+        // Forcing pour remplacer les mot par des codes bien spécifiques à moi
         var modelEscale     = '5x#';
-        var modelArrivee    = '02#15%';
-        
+        var modelArrivee = '02#15%';
+
+        // Je parcours le tableau de termes  et je les replace par mes codes.
+        // Quand je tombe sur la bonne langue, je remplace et je sors de la boucle
         for (var i = 0; i < motEscale.length; i++) {
             
             var regex   = new RegExp(motEscale[i],"ig");
@@ -101,10 +106,14 @@ var construireRoadbook = function () {
         
     };
 
-    // - La fonction "depuisDonneesBrutes récupère les donnees depuis l'interface
-    // - Les splite puis range dans un tableau d'objects les données calculées
+    // - La fonction "depuisDonneesBrutes" récupère les donnees depuis l'interface
+    // - Elle splite puis range dans un tableau d'objects les données calculées
      
     this.depuisDonneesBrutes = function () {
+
+        var epp = 24;  // nombre d'étapes par page
+        var nb_col = 2; // nombre de colonne
+        var nbl = epp / nb_col; // nombre de ligne
         
         $("td.ir-right span").css('opacity', 1);
         $("td.ir-right input").css('opacity', 1);
@@ -115,7 +124,8 @@ evenement.console("Importation données brutes", 'infoA');
 
         var data_brute = this.formateData($("#data-brute").val());
         var cookieUnite = actionCookies.litCookie("_RBC_UniteMesure");
-//        console.log(cookieUnite);
+
+        // Calcul suivant le choix de l'unité de mesure (métrique (m) ou impériale (mi))
         var unite = 1;
         if (cookieUnite === "imperial"){
             unite = 1.609;
@@ -123,11 +133,10 @@ evenement.console("Importation données brutes", 'infoA');
 
         try {
 
-        // Splite des donnees. Récupération de chaque ligne dans le tableau "lignes".
+            // Splite des donnees ligne par ligne (\n). Récupération de chaque ligne dans le tableau "lignes".
         
             var lignes = data_brute.split("\n");
-//            var KurvigerLangage = '';
-            var e = 1;
+            var e = 1;  // Incrémentation pour le numéro d'étape
         
         // Initialisation du tableau d'objets. Ici on aura à tableau d'étapes.
         // Chaque étape sera composé des distances calculées, de son image de direction
@@ -137,8 +146,8 @@ evenement.console("Importation données brutes", 'infoA');
             Etape[0]    = new Object();
             Etape[0].numero     = 0;
             Etape[0].escale     = '';//this.motCleInit(this.getCookie("_RBC_Langage")).depart;;
-            var dParcourue      = 0;
-            Etape[0].dParcourue = dParcourue;
+            
+            Etape[0].dParcourue = 0;
             Etape[0].dPartielle = 0;
             
             var dTotale = (lignes[lignes.length - 1]).replace("\t\t", "\t").split("\t")[2] / 1000;
@@ -157,23 +166,20 @@ evenement.console("Parsing ...", 'infoA');
                 // La variable "mots" est un tableau contenant chaque mots de chaque ligne
 
                 var ligne = lignes[i].replace("\t\t", "\t");
-                var mots = ligne.split("\t");
+                var termes = ligne.split("\t");
                 
                 
                 
                 // Pour le roadbook, on ne gardera que les étapes marquée "Escale" ou "Arrivée"
                 // Ce sont les étapes que l'utilsateur à placées sur la carte de Kurviger.
                 
-//                var escale = this.motCleInit(this.getCookie("_RBC_Langage")).escale;
-//                var arrivee = this.motCleInit(this.getCookie("_RBC_Langage")).arrivee;
-                
-                if (mots[1].indexOf('5x#') > -1 || mots[1].indexOf('02#15%') > -1) {
+                if (termes[1].indexOf('5x#') > -1 || termes[1].indexOf('02#15%') > -1) {
                     
                     // Remplisssage du tableau d'étapes. Chaque étape représente un nouvel objet.
                     Etape[e] = new Object();
                     Etape[e].numero         = e;
-                    Etape[e].escale         = mots[1];
-                    Etape[e].dParcourue     = calculerDistance.Parcourue(mots[2], unite, 'data-brute');
+                    Etape[e].escale = termes[1];
+                    Etape[e].dParcourue = calculerDistance.Parcourue(termes[2], unite, 'data-brute');
                     Etape[e].dPartielle     = calculerDistance.Partielle(Etape[e].dParcourue, Etape[e - 1].dParcourue, 'data-brute');
                     Etape[e].dRestante      = calculerDistance.Restante(dTotale, Etape[e].dParcourue);
                     Etape[e].commentaire    = '';
@@ -184,10 +190,12 @@ evenement.console("Parsing ...", 'infoA');
             }
             
             // La variable nb_page_entiere permet de créer la boucle pour générer le roadbook par page.
-            // Dans la cas présent, il y aura 24 étapes par feuille.
-            // /!\ Modifier cette formule entrainera une modification obligatoire de la suite du code.
+            // La variable epp (étapas par page) détermine le nombre de page entière à créer suivant
+            // le nombre total d'étape
+            // reste_etape représente le nombre d'étapes restantes (pas assez pour construire une page entière)
 
-            var nb_page_entiere = (Etape.length - (Etape.length % 24)) / 24;
+            var reste_etape = Etape.length % epp;
+            var nb_page_entiere = (Etape.length - (Etape.length % epp)) / epp;
             
             // La variable "modeCorrection" permet de spécifier depuis l'interface 
             // si on créer un nouveau roadbook ou bien si on modifie les valeurs d'un roadbook 
@@ -230,10 +238,14 @@ evenement.console("Parsing ...", 'infoA');
             // La variable "t" sert à sauter d'index à chaque nouvelle page
             // Elle est incrémentée de 24 à chaque fin de page
             var t = 0;
-            
+            var q = 1;
+
             // Boucle pour chaque page
+            if (reste_etape === 0) {
+                q = 0;
+            }
             
-            for (var n = 1; n <= nb_page_entiere + 1; n++) {
+            for (var n = 1; n <= nb_page_entiere + q; n++) {
 evenement.console("Calculs page " + n +" ...", 'alertA');
 
                 // Si modeCorrection est inactif, inutile de créer l'entête du tableau
@@ -253,7 +265,7 @@ evenement.console("Mode correction actif, modification des données ...", 'alert
 
             // Boucle pour remplir chaque étape de la page courante
             
-                for (var i = t; i < 12 + t; i++) {
+                for (var i = t; i < nbl + t; i++) {
                     
                     // Initilaisation des variables
 
@@ -264,7 +276,7 @@ evenement.console("Mode correction actif, modification des données ...", 'alert
                             eCommentaire    =
                             eDirection      = '';
 
-                    var eNumero2 = i + 12;
+                    var eNumero2 = i + nbl;
                     var edPartielle2        =
                             edRestante2     =
                             edParcourue2    =
@@ -286,13 +298,13 @@ evenement.console("Mode correction actif, modification des données ...", 'alert
                     }
                     
                     // Deuxièmre colonne du tableau (du roadbook)
-                    if (typeof Etape[i + 12] !== 'undefined') {
-                        var eNumero2        = Etape[i + 12].numero;
-                        var edPartielle2    = Etape[i + 12].dPartielle;
-                        var edRestante2     = Etape[i + 12].dRestante;
-                        var edParcourue2    = Etape[i + 12].dParcourue;
-                        var eCommentaire2   = Etape[i + 12].commentaire;
-                        var eDirection2     = Etape[i + 12].direction;
+                    if (typeof Etape[i + nbl] !== 'undefined') {
+                        var eNumero2 = Etape[i + nbl].numero;
+                        var edPartielle2 = Etape[i + nbl].dPartielle;
+                        var edRestante2 = Etape[i + nbl].dRestante;
+                        var edParcourue2 = Etape[i + nbl].dParcourue;
+                        var eCommentaire2 = Etape[i + nbl].commentaire;
+                        var eDirection2 = Etape[i + nbl].direction;
 
                     }
                     
@@ -331,7 +343,7 @@ evenement.console("Mode correction actif, modification des données ...", 'alert
 
                             
                             // Nouvelle boucle pour créer la dernière page dans le cas d'une correction
-                            for (var i = (n - 1) * 24; i < ((n - 1) * 24) + 12; i++) {
+                            for (var i = (n - 1) * epp; i < ((n - 1) * epp) + nbl; i++) {
 
 
                                 //console.log(i);
@@ -342,7 +354,7 @@ evenement.console("Mode correction actif, modification des données ...", 'alert
                                         eCommentaire    =
                                         eDirection      = '';
 
-                                var eNumero2    = i + 12;
+                                var eNumero2 = i + nbl;
                                 var edPartielle2        =
                                         edRestante2     =
                                         edParcourue2    =
@@ -359,13 +371,13 @@ evenement.console("Mode correction actif, modification des données ...", 'alert
                                     var eDirection      = Etape[i].direction;
                                 }
 
-                                if (typeof Etape[i + 12] !== 'undefined') {
-                                    var eNumero2        = Etape[i + 12].numero;
-                                    var edPartielle2    = Etape[i + 12].dPartielle;
-                                    var edRestante2     = Etape[i + 12].dRestante;
-                                    var edParcourue2    = Etape[i + 12].dParcourue;
-                                    var eCommentaire2   = Etape[i + 12].commentaire;
-                                    var eDirection2     = Etape[i + 12].direction;
+                                if (typeof Etape[i + nbl] !== 'undefined') {
+                                    var eNumero2 = Etape[i + nbl].numero;
+                                    var edPartielle2 = Etape[i + nbl].dPartielle;
+                                    var edRestante2 = Etape[i + nbl].dRestante;
+                                    var edParcourue2 = Etape[i + nbl].dParcourue;
+                                    var eCommentaire2 = Etape[i + nbl].commentaire;
+                                    var eDirection2 = Etape[i + nbl].direction;
                                 }
                                 $("#page-" + n)
                                         .append(elementTable.nouvelleLigne(
@@ -386,7 +398,7 @@ evenement.console("Mode correction actif, modification des données ...", 'alert
 
 
                 }
-                t += 24;
+                t += epp;
 
                 // Fin du tableau en cas de odeCorrection = inactif
                 if (modeCorrection === 'inactif') {
@@ -403,10 +415,13 @@ evenement.console("Page " + n + " générée...", 'okA');
 //evenement.imprimerRoadbook();
 //evenement.DragDropImage();
 //evenement.supprimeImageDirection();
+oNotif.success('Données importées, roadbook généré.');
 
         } catch (erreur) {
+            
 evenement.console("Données mal formatées", 'critiqueA');
-            $("#feuille-roadbook").append(elementTable.ligneErreur(erreur));
+$("#feuille-roadbook").append(elementTable.ligneErreur(erreur));
+oNotif.error('Un problème est survenue lors de l\'importation des données.');
 
         }
         
@@ -425,7 +440,7 @@ evenement.imprimerRoadbook();
     // Lors de l'importation d'un projet, le roadbook déjà présent dans l'interface est écrasé
 
     this.depuisFichierRBK = function (fichierRBK) {
-        
+
         $("td.ir-right span").css('opacity', 1);
         $("td.ir-right input").css('opacity', 1);
         
@@ -437,18 +452,15 @@ evenement.imprimerRoadbook();
 //        }else{
 //           uniteX = 1; 
 //        }
-
-
-
-        
-                var auteur  = '';
+        var auteur = '';
                 var date    = '';
                 var langage = '';
                 var version = '';
-                var unite   = '';
+        var unite = '';
+        var KurvUrl = '';
 
         try {
-            
+
 evenement.console("Récupération des données depuis le serveur", 'infoA');
             // Récupération du contenu du fichier envoyé       
             $.get("./upload/" + fichierRBK, function (data) {
@@ -478,7 +490,8 @@ evenement.console("Calculs ...", 'infoA');
                         date    = nouvelleLigne.RBKdate;
                         langage = nouvelleLigne.RBKlangage;
                         version = nouvelleLigne.RBKversion;
-                        unite   = nouvelleLigne.RBKunite;
+                        unite = nouvelleLigne.RBKunite;
+                        KurvUrl = nouvelleLigne.KurvUrl;
                         
                        
                     }
@@ -646,6 +659,9 @@ evenement.console("Ajout des données dans le roadbook...", 'infoA');
                 $('#RBKauteur').text(auteur);
                 $('#RBKdate').text(date);
                 $('#RBKversion').text(version);
+                if (KurvUrl !== '') {
+                    evenement.chargeCarteKurviger(KurvUrl);
+                }
                 
                 
                 $('#unite-mesure option[value="'+unite+'"]').prop('selected', true);
@@ -678,15 +694,15 @@ evenement.console("Ajout des données dans le roadbook...", 'infoA');
             evenement.supprimeImageDirection();
             evenement.imprimerRoadbook();
             });
-            
-evenement.console("Terminé ...", 'okA');
 
-        } catch (erreur) {  
+            evenement.console("Terminé ...", 'okA');
+            oNotif.success('Données importées, roadbook généré.');
+        } catch (erreur) {
+
             console.log('Une erreur est survenue');
             $("#feuille-roadbook").append(elementTable.ligneErreur(erreur));
-
+            oNotif.error('Un problème est survenue lors de l\'importation des données.');
         }
-        
 
     };
     
@@ -706,7 +722,7 @@ evenement.console("Terminé ...", 'okA');
 
         try {
             
-evenement.console("Récupération des données depuis le serveur", 'infoA');
+evenement.console("Récupération des données depuis les cookies", 'infoA');
                 
                 // Récupération et fusion des données stockées dans
                 // les cookies.
@@ -719,7 +735,7 @@ evenement.console("Récupération des données depuis le serveur", 'infoA');
                 var Etape = new Array();
 
 evenement.console("Calculs ...", 'infoA');
-//        Parcours du fichier RBK au format JSON
+//        Parcours des données JSON
                 $.each($.parseJSON(roadbook), function (i, nouvelleLigne) {
                     
                     if (typeof nouvelleLigne.RBKauteur === 'undefined') {
@@ -938,10 +954,11 @@ evenement.console("Ajout des données dans le roadbook...", 'infoA');
 //            });
             
 evenement.console("Terminé ...", 'okA');
-
-        } catch (erreur) {  
-            console.log('Une erreur est survenue :' + erreur);
+            oNotif.success('Projet récupéré !');
+        } catch (erreur) {
+            console.log('Une erreur est survenue');
             $("#feuille-roadbook").append(elementTable.ligneErreur(erreur));
+            oNotif.error('Un problème est survenue lors de l\'importation des données.');
 
         }
         

@@ -23,7 +23,9 @@ var Langage = function(){
         
         this.etapes = "Schritte";
         this.page = "Seite";
-        this.pages = "Seiten";
+    this.pages = "Seiten";
+
+    this.nomProjet = "Name des Projekts";
     
 };
 

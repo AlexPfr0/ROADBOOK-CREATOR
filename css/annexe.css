@@ -1,0 +1,82 @@
+/*Ce fichier contient le style de l'annexe en mode conception
+Le style du rendu final se trouve dans ./pdf/annexe.css
+
+Alex P. - 03/2021 */
+
+#feuille-annexe{
+    width: 98%;
+    margin: auto;
+}
+
+.no-border{
+    border: 0px;
+    height: 17px; 
+}
+
+.titre-annexe{
+    font-weight: bold;
+}
+
+.conseil-annexe, .conseil{
+    text-align: left;
+    font-size: 0.7em;
+}
+
+.champ{
+    border: 1px #000 solid;
+    width: 12.5%
+}
+
+.enigme{
+    text-align: left;
+    font-style: italic;
+    font-weight: bold;
+    
+}
+.reponse{
+    background-color: #EEEEEE;
+    border: none;
+/*    color: whitesmoke;*/
+}
+
+#id_enigme{
+    width: 50px;
+}
+
+#annexe-titre, #form-enigme{
+     width: 75%;
+    cursor: pointer;
+    font-family: 'Bai Jamjuree', sans-serif; 
+    font-size: 21px;
+    background-color: #2ecc71;
+    color: #fff;
+    margin: auto;
+    padding: 15px;
+    margin-top: 15px;
+    text-align: left;
+}
+
+/*#ajouter-entete, #ajouter-enigme,
+#supprimer-enigme, #export-annexe-button,
+#import-annexe-button, #save-annexe-button{
+    background-color: #2ecc71; 
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    margin: auto;
+    color: #fff;
+    font-size: 20px;
+    width: 75%;
+}
+#ajouter-entete:active, #ajouter-enigme:active, 
+#supprimer-enigme:active, #export-annexe-button:active,
+#import-annexe-button:active, #save-annexe-button:active{
+        color: #e67e22;
+}*/
+
+.no-border img{
+    width: 50px;
+    height: 70px;
+    margin: -15px
+}
+

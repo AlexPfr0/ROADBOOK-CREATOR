@@ -14,13 +14,13 @@ var Pictogramme = function () {
             uploadZone.dropzone({
                 url: "uploadImages.php",
                 addRemoveLinks:     true,
-                maxFiles:           10,
-                acceptedFiles:      ".jpg",
+                maxFiles: 50,
+                acceptedFiles: ".png",
                 maxFilesize:        2,
                 dictDefaultMessage: expression.defautMessageEnvoiImages,
                 dictRemoveFile:     expression.removeFile,
-                resizeWidth:        100,
-                resizeHeight:       100,
+                resizeWidth: 250,
+                resizeHeight: 250,
                 thumbnailMethod:    'crop',
                 resizeQuality:      1,
     // Quand le fichier est uploadé            

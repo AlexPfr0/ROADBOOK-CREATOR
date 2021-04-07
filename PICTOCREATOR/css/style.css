@@ -1,0 +1,174 @@
+body{
+
+}
+
+canvas{
+    border: 1px #000 solid;
+    cursor: crosshair;
+}
+canvas.calque{
+    cursor: pointer;
+}
+
+.conteneur {
+    position: relative;
+    margin: 0;
+}
+
+.conteneur > canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#principal{
+    width: 90%;
+    margin: auto;
+    border: #000011 5px solid;
+    text-align: left;
+}
+
+#reglages td {
+    text-align: left;
+    padding: 15px
+}
+
+.col-2{
+    width: 35%
+}
+.col-3{
+    width: 30%
+}
+.col-4{
+    width: 50px}
+
+.L-selectionne{
+    background-color: rgba(68, 106, 163, 0.25);
+    font-weight: bolder;
+    border-bottom: 2px solid #446AA3;
+    border-top: 2px solid #446AA3;
+}
+.L-non-selectionne{
+    background-color: rgba(68, 106, 163, 0);
+    font-weight: normal;
+}
+
+td{
+    padding: 10px
+}
+.sliderAAA{
+    margin: 15px
+}
+
+th{
+    font-size: 20px;
+    color: #fff;
+    background-color: #446AA3;
+    padding: 10px;
+}
+
+th.col-gauche{
+    /*width: 60%;*/
+
+    padding-left: 100px;
+}
+
+th.col-droite{
+    padding-left: 100px;
+    width: 520px
+}
+
+th.col-milieu{
+    padding-left: 1px
+}
+
+#x_y-souris{
+    font-size: 1em !important
+}
+
+.coords{
+    width: 60px;
+    border:0;
+    color:#f6931f;
+    font-weight:bold;
+
+}
+
+#canvas1_sup{
+    background-color: transparent;
+    z-index: 5
+}
+#canvas1{
+    background-color: transparent;
+    z-index: 4
+}
+#canvas1_inf{
+    background-color: transparent;
+    z-index: 3
+}
+#canvas2{
+    background-color: transparent;
+    z-index: 2
+}
+#canvas3{
+    background-color: white;
+    z-index: 1;
+
+}
+
+.non-selectionne{
+    background-color: white;
+    font-size: 1.3em
+}
+
+.selectionne{
+    background-color: #446AA3;
+    font-size: 1.3em
+}
+
+.blanc{
+    background-color: white;
+}
+
+.normal{
+    background-color: transparent;
+}
+
+#calques .calqNonSel{
+    border: 2px solid #000;
+}
+
+#calques .calqSel{
+    border: 2px solid orangered;
+}
+
+/*.calqSel{
+    border: 2px solid orangered;
+}*/
+
+#outils{
+    border-bottom: 2px gray solid;
+    margin-bottom: 5px;
+}
+
+#outils span{
+    font-size: 1.5em;
+    padding: 5px;
+}
+
+#outils .glyphicon-trash{
+    color: red ;
+    cursor: pointer;
+    /*background-color: red;*/
+}
+
+#outils .glyphicon-download-alt{
+    color: blue ;
+    cursor: pointer;
+    /*background-color: red;*/
+}
+
+.choix-picto-type{
+    cursor: pointer;
+}
+

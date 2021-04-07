@@ -1,0 +1,128 @@
+     table{
+        border-collapse:collapse;
+        width: 1000px;
+        table-layout:fixed;
+        max-width: 1000px;
+}
+.milieuG{
+    border-right: 1px #666 dashed;
+    border-bottom: 0px;
+    border-top : 0px;
+    width: 10px
+}
+.milieuD{
+    border-left: 1px #666 dashed;
+    border-bottom: 0px;
+    border-top : 0px;
+    width: 10px
+}
+.entete td {
+    background-color: #666;
+    color: #fff;}
+
+
+img{
+    height:148px;
+    width:148px;
+}
+
+td{
+    border: #666 1px solid;
+    text-align: center;
+    
+}
+
+
+.kilometrage-1Col{
+    width: 250px;
+
+}
+
+.num_etape{
+    font-size: 24px;
+    background-color: #666;
+   color :#fff;
+   font-weight: bold;
+   width: 30px;
+   height: 30px
+}
+
+.d_restante-1Col{
+    font-size: 24px;
+    height: 30px;
+    width: 85px;
+
+
+}
+
+.d_parcourue-1Col{
+    font-size: 24px;
+    font-weight: bold;
+    height: 30px;
+    width: 85px;
+    background-color: #ECF0F1;
+    
+}
+
+.d_inter-1Col{
+    font-size: 60px;
+    font-weight: bold;
+    height: 40px
+    
+}
+
+.direction-1Col{
+    /*width: 200px;*/
+
+}
+
+.direction-image-1Col{
+    height : 148px;
+    width: 148px;
+}
+
+.commentaires-1Col{
+    width: 240px;
+
+    
+}
+.commentaire-1Col{
+    width: 260px;
+    font-size: 22px
+}
+
+ligne_vide_H {
+    border: none; 
+    background-color: #fff
+}
+.ligne_vide_B{
+    border: none; 
+    background-color: #fff
+}
+
+.ligne_vide_H{
+    border: none; 
+    
+    font-size: 10px;
+}
+.ligne_vide_B{
+    border: none; 
+    
+    font-size: 10px;
+}
+
+.editable{
+    
+}
+.editable div{
+  
+}
+
+/*.inv{
+    background-color: white;
+    color: white;
+    border-width: 0px;
+        border-right-color : white !important;
+        border-top-color : white !important;
+}*/
+

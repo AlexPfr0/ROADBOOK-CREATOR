@@ -18,12 +18,14 @@ var Langage = function(){
         this.removeFileConfirmation = null;
         this.maxFilesExceeded = "Vous ne pouvez pas envoyer autant de fichiers.";
         
-        this.defautMessageEnvoiImages = "Seuls les fichiers .jpg sont acceptés";
+    this.defautMessageEnvoiImages = "Seuls les fichiers .png sont acceptés";
         this.defautMessageEnvoiRBK = 'Glissez votre fichier pour charger un roadbook (.rbk)';
         
         this.etapes = "étapes";
         this.page = "page";
-        this.pages = "pages";
+    this.pages = "pages";
+
+    this.nomProjet = "Nom du projet";
     
 };
 

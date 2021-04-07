@@ -885,7 +885,8 @@ function (_Emitter) {
               for (var _iterator6 = file.previewElement.querySelectorAll("[data-dz-thumbnail]")[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
                 var thumbnailElement = _step6.value;
                 thumbnailElement.alt = file.name;
-                thumbnailElement.src = dataUrl;
+                                                            thumbnailElement.src = dataUrl;
+
               }
             } catch (err) {
               _didIteratorError6 = true;
@@ -996,8 +997,11 @@ function (_Emitter) {
         sendingmultiple: function sendingmultiple() {},
         // When the complete upload is finished and successful
         // Receives `file`
-        success: function success(file) {
-          if (file.previewElement) {
+                                            success: function success(file) {
+
+
+                                                if (file.previewElement) {
+                                                    
             return file.previewElement.classList.add("dz-success");
           }
         },
@@ -1009,7 +1013,15 @@ function (_Emitter) {
         canceledmultiple: function canceledmultiple() {},
         // When the upload is finished, either with success or an error.
         // Receives `file`
-        complete: function complete(file) {
+                                            complete: function complete(file) {
+//mbA --->
+                                                var typePicto = file.name.split('-')[1];
+                                                var types = {RP: 'rondpoints', DP: 'directions', DNP: 'directions',
+                                                    PAN: 'panneaux', EN: 'enigmes'};
+
+                                                $('#categorie_hid').val(types[typePicto]);
+                                                evenement.rafraichirPanelImages(types[typePicto]);
+
           if (file._removeLink) {
             file._removeLink.innerHTML = this.options.dictRemoveFile;
           }

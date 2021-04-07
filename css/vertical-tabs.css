@@ -24,6 +24,7 @@
     background-color: #446aa3;
     border-bottom: 1px solid #000;
     color:white;
+    -webkit-transition: background-color 0.25s ease-out;
 }
 .tabs ul > li a.active {
     background-color: #446aa3;
@@ -52,5 +53,6 @@
 }
 
 .glyphicon{
-    margin-right: 20px
+    margin-right: 20px;
+
 }

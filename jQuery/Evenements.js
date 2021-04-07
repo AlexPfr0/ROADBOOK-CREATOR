@@ -6,7 +6,9 @@ var Evenements = function () {
     // Tous les conteneurs de class droppable peuvent recevoir une image.
 
     this.DragDropImage = function (md = false) {
-                 
+// Si le mode déplacement (md) est inactif
+// On ne peut déplacer les pictos que du panel vers le roadbook
+// Si md est true, on ne peut déplacer les pictos que dans le roadbook (d'une case à l'autre)
 if(md === false){
             $(function () {
             
@@ -49,8 +51,8 @@ evenement.console("Pictogramme ajouté", 'okA');
 }else{
             $(function () {
             
-        // Les images dans le panel
-            $(".direction-image img").draggable({
+                // Mode déplacement dans le cas d'une seule colonne
+                $(".direction-image-1Col img").draggable({
                 revert: "invalid",
                 revertDuration: 200,
                 helper : 'clone',
@@ -59,7 +61,19 @@ evenement.console("Pictogramme ajouté", 'okA');
                 snapTolerance: 20,
                 cursor: 'move',
                 opacity: 0.5
-              });
+                });
+
+                // Mode déplacement dans le cas de 2 colonnes
+                $(".direction-image img").draggable({
+                    revert: "invalid",
+                    revertDuration: 200,
+                    helper: 'clone',
+
+                    snap: ".droppable",
+                    snapTolerance: 20,
+                    cursor: 'move',
+                    opacity: 0.5
+                });
             
         // Cellules du tableau    
             $(".droppable").droppable({
@@ -124,72 +138,46 @@ evenement.console("Pictogramme '" + title + "' supprimé", 'okA');
         $(this).remove();
             
         });
+        $('.direction-image-1Col img').dblclick(function () {
 
+            var title = $(this).attr('title');
+            evenement.console("Pictogramme '" + title + "' supprimé", 'okA');
 
-    };
-    
-    // Fonction pour ajouter un textarea pour éditer les commentaires
-    // Obsolète => remplacé par l'attribut HTML "contentEditable"
-    // Erreur volontaire (editCommentair[e])
-    this.editCommentair = function () {
-
-        $(".commentaire").mousedown(function () {
-
-            if ($('#edit-' + this.id).length === 0) {
-                $(this).append('<textarea class="txt" id="edit-' + this.id + '"></textarea>');
-                $(this).append('<p id="act-' + this.id + '"><span id="val-' + this.id + '" class="rb_button glyphicon glyphicon-check"></span>');
-
-
-
-                $('#edit-' + this.id).val($('#' + this.id).text().replace("<br>", /\n/g));
-            }
-
-
-            $(".rb_button").mouseup(function () {
-
-
-                var btn_Id = this.id.split("-");
-                var comId = btn_Id[1] + '-' + btn_Id[2]; // com-0
-
-                // $('#edit-' + comId).val(('rrrr'));
-
-                if (btn_Id[0] === 'val') {
-
-                    var commentaire = $('#edit-' + comId).val();
-
-                    var commentaire_ = commentaire.replace(/\n/g, "<br>");
-                    $('#' + comId).html(commentaire_);
-
-                    $('#edit-' + comId).remove();
-                    // alert('rere');
-
-                }
-
-            });
+            $(this).remove();
 
         });
 
 
     };
 
+
     // Simulation du clic de la zone de drag & drop pour l'import des fichiers RBK
+    // Depuis le v.2021-03, on ne peut plus d&d les fichiers (inutile)
     this.clicImporter = function () {
 
         $('#uploadZone').trigger('click');
         
 
     };
+    this.clicImporter_picto = function () {
+
+        $('#uploadImagesZone').trigger('click');
+
+
+    };
     
-    
+    // Prépare le PDF (mousedown)
+    // Génère le PDF (mouseup)
     this.imprimerRoadbook = function () {
 
         $("#export-button").mousedown(function () {
 
-            
+            // Génération du nom
             if ($('#nom_roadbook').val() === "") {
                 $('#nom_roadbook').val('Nouveau Roadbook');
             }
-
+            
+            // Initialisation 
             $('#html-brut').val('');
             $('#nom_roadbook_2').val('');
             $('#CSS-perso').val('');
@@ -207,13 +195,33 @@ evenement.console("Pictogramme '" + title + "' supprimé", 'okA');
             $('#CSS-perso').val(css);
             
             $('#nom_roadbook_2').val($('#nom_roadbook').val());
+});
+
+        $("#export-button").mouseup(function () {
+            document.forms['creerPDF'].submit();
+            $('#html-brut').val('');
+        });
 
 
 
+    };
+    
+        this.imprimerAnnexe = function () {
 
+        $("#export-annexe-button").mousedown(function () {
+
+
+
+            $('#html-brut-annexe').val('');
+
+            var data = $('#feuille-roadbook').html();
+
+            $('#html-brut-annexe').val(data);
+            
         });
 
     };
+
 
 // Fonction pour coller directement les données dans la zone.
 // Ne fonctionne pas pour des raisons de sécurité.
@@ -227,8 +235,6 @@ evenement.console("Pictogramme '" + title + "' supprimé", 'okA');
                 Il semblerait que cette fonctionalité soit désactivée \n\
                 sur beaucoup navigateurs (pour des raisons de sécrité).\n\n\
                 Vous pouvez toujours coller les données en faisant clic droit > coller.');
-
-
 
         });
 
@@ -296,6 +302,7 @@ evenement.console("Mode 'Déplacement' des pictogrammes désactivé", 'infoA');
     
     
     // Récupération de la catégorie sélectionnée pour l'envoi de pictogrammes
+    // OBSOLETE : la catégorie est automatiquement déduite depuis la v2021-03
     this.selectCategorie = function () {
         $('#cat-select').change(function () {
             var value = $(this).children("option:selected").val();
@@ -306,6 +313,7 @@ evenement.console("Mode 'Déplacement' des pictogrammes désactivé", 'infoA');
 
     // Cette fonction permet de rechercher les fichiers (pictogrammes) déjà existantes.
     // De toute façon les photos uploadées ne peuvent écraser celles déjà existantes.
+    // OBSOLETE : la catégorie est automatiquement déduite depuis la v2021-03
     this.chercheFichier = function () {
 
 
@@ -369,22 +377,48 @@ evenement.console("Mode 'Déplacement' des pictogrammes désactivé", 'infoA');
             actionCookies.creeCookie('_RBC_ColonneUnique', $('#colonne-unique').val(), nbJours);
             
             actionCookies.creeCookie('_RBC_ValCase_1', $('#valeur_case_1').val(), nbJours);
-            actionCookies.creeCookie('_RBC_ValCase_2', $('#valeur_case_2').val(), nbJours);
-            actionCookies.creeCookie('_RBC_ValCase_3', $('#valeur_case_3').val(), nbJours);
+//            actionCookies.creeCookie('_RBC_ValCase_2', $('#valeur_case_2').val(), nbJours);
+//            actionCookies.creeCookie('_RBC_ValCase_3', $('#valeur_case_3').val(), nbJours);
             
 
         });
         
     };
     
+    this.supprimerCookies = function(){
+        $('#supprimerCookies').dblclick(function () {
+            actionCookies.supprimeTout();
+        });
+    };
+    
     this.ajouteEnteteForm = function (){
         $('#ajouter-entete').click(function(){
-            $("#feuille-roadbook").append(elementTable.enteteFormulaire());
+            
+            if($('#id_enigme').val() === '0'){
+                $("#feuille-roadbook").append(elementTable.enteteAnnexe());
+            }
+            
         });
     };
     this.ajouteEnigme = function (){
         $('#ajouter-enigme').click(function(){
-            $("#feuille-roadbook").append(elementTable.ligneEnigme($('#form-enigme').val()));
+            $("#feuille-annexe").append(elementTable.ligneEnigme('Rédiger votre énigme ici'));
+        });
+    };
+    
+    this.supprimeEnigme = function () {
+
+        $('#supprimer-enigme').click(function () {
+            
+            if($('#id_enigme').val() > 1){
+                $('#id_enigme').val($('#id_enigme').val() - 1);
+                
+            }
+            var enigmeID = $('#id_enigme').val();
+                $(".enigme-" + enigmeID).remove();
+            
+            
+            
         });
     };
     
@@ -407,6 +441,19 @@ evenement.console("Mode 'Déplacement' des pictogrammes désactivé", 'infoA');
          $('#console').append(consoleLigne);
          
          
-     };
+    };
+
+    this.chargeCarteKurviger = function (KurvUrl) {
+        
+        if (KurvUrl !== ''){
+                    $('#mapframe').show();
+        $('#iframeMap').attr('src', KurvUrl);
+
+        jQuery(document).ready(function () {
+            $("#mapframe").scrollTop(0).scrollLeft(1000);
+        });
+        }
+
+    };
     
 };

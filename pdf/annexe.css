@@ -1,0 +1,110 @@
+     table{
+        /*border-collapse:collapse;*/
+        width: 1000px;
+        /*table-layout:fixed;*/
+        /*max-width: 1000px;*/
+        margin: auto;
+}
+
+tr{
+    /*border: 1px solid black;*/
+    height: 50px
+}
+
+.no-border{
+    border: 0px;
+    height: 15px;
+    
+    
+}
+
+
+
+.no-border img{
+    
+}
+
+.titre-annexe{
+    font-weight: bold;
+    text-align: center;
+    font-size: 15px;
+    /*color: red;*/
+    
+}
+
+.npafficher{
+    height:5px;
+    /*background-color: #2ecc71;*/
+}
+
+.conseil, .conseil-annexe{
+    text-align: left;
+    font-size: 10px;
+}
+.img-enigme{
+    width: 50px;
+    height: 70px;
+    /*margin-top: 50px*/
+}
+.champ{
+    
+    border-bottom: 1px #000 solid;
+    width: 80px;
+    /*height: 15px;*/
+    /*background-color: red;*/
+}
+
+.reponse{
+    border: 0px;
+    /*background-color: #fff;*/
+    font-size: 12px;
+    padding: 20px;
+}
+
+.prenom, .moto, .kmdep, .kmarr, .groupe{
+    width: 80px;
+    /*background-color: red;*/
+    text-align: center;
+    font-size: 12px
+}
+
+.enigme{
+    text-align: left;
+    font-style: italic;
+    /*font-weight: bold;*/
+    font-size: 15px;
+    
+}
+.reponse{
+    background-color: #EEEEEE;
+    
+}
+
+#annexe-titre, #form-enigme{
+     width: 75%;
+    cursor: pointer;
+    font-family: 'Bai Jamjuree', sans-serif; 
+    font-size: 21px;
+    background-color: #2ecc71;
+    color: #fff;
+    margin: auto;
+    padding: 15px;
+    margin-top: 15px;
+    text-align: left;
+}
+
+#ajouter-entete, #ajouter-enigme{
+    background-color: #2ecc71; 
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    margin: auto;
+    color: #fff;
+    font-size: 20px;
+    width: 75%  
+}
+
+img{
+
+}
+

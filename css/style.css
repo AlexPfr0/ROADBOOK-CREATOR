@@ -8,12 +8,54 @@ de la page et optimiser l'affichage.*/
    
     src: url("../css/baijam.woff2") format("woff2");
 }
-
+#uploadZone, #uploadImagesZone {
+    display: none;
+}
 body{
     background-color: #ecf0f1;
     font-family: 'Bai Jamjuree', sans-serif;
 
 }
+
+#mapframe {
+    position: fixed;
+    bottom: 0;
+    left: 10px;
+    border: black 2px solid;
+    width: 650px; height: 250px; overflow:auto hidden;
+    resize: both
+}
+
+
+#url{
+    margin-top: 5px;
+    border: 2px #333 solid
+}
+#valideUrl{
+    margin-top: 5px;
+    border: 2px #333 solid;
+    width: 60px;
+
+    background-color: #2980b9;
+    color: white;
+    /*font-size: 1.5em;*/
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#valideUrl:hover{
+    color:#2980b9;
+    background-color: white;
+    -webkit-transition: background-color 0.5s ease-out;
+    -webkit-transition: color 0.25s ease-out;
+
+}
+#valideUrl:active{
+    background-color: #e74c3c;
+    color: white;
+}
+
 
 /*Contenant les pages du roadbook*/
 #feuille-roadbook, #roadbook-imprimable{
@@ -60,6 +102,14 @@ body{
 .panel{
     border: 0;
     border-top: 10px #e74c3c solid;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                          supported by Chrome, Edge, Opera and Firefox */
 }
 
 .panel img{
@@ -94,9 +144,20 @@ td{
     color : #fff;
 
 }
+/*.entete td.inv{
+    background-color: white;
+    color: white;
+    border-width: 0px;
+
+    border-top-color : white !important;
+}*/
 
 .kilometrage{
     width : 125px;
+}
+
+.kilometrage-1Col{
+    width : 250px;
 }
 
 .num_etape{
@@ -112,9 +173,18 @@ td{
     font-size: 12px;
     
 }
+.d_restante-1Col{
+    font-size: 24px;
+
+}
 
 .d_parcourue{
     font-size: 12px;
+    font-weight: bold;
+    background-color: #ECF0F1;
+}
+.d_parcourue-1Col{
+    font-size: 24px;
     font-weight: bold;
     background-color: #ECF0F1;
 }
@@ -124,15 +194,30 @@ td{
     font-weight: bold;
 
 }
+.d_inter-1Col{
+    font-size: 60px;
+    font-weight: bold;
+
+}
 
 .direction{
     width: 100px;
 
 }
 
+.direction-1Col{
+    width: 200px;
+
+}
+
 .direction-image{
     height : 81px
 }
+.direction-image-1Col{
+    height : 162px
+}
+
+
 
 .commentaires{
     width: 150px;
@@ -141,9 +226,22 @@ td{
 
 }
 
+.commentaires-1Col{
+    width: 300px;
+    vertical-align: top;
+}
+
+
+
 td.commentaire{
     padding : 2px;
     vertical-align: middle;
+}
+
+td.commentaire-1Col{
+    padding : 2px;
+    vertical-align: middle;
+    font-size: 2em;
 }
 
 .editable{
@@ -230,6 +328,11 @@ td.commentaire{
     height: 75px;
     margin: auto;
 }
+.direction-image-1Col img{
+    height : 150px;
+    width: 150px;
+    margin: auto;
+}
 
 #data-brute{
     width: 100%;
@@ -269,35 +372,49 @@ td.commentaire{
 
 }
 
-#import-button, #export-button, 
-#bouton-sauver-projet, #charger-projet,
-#import-rbk,  #ajouter-enigme-button
+.bouton
+
 {
     width: 75%;
     cursor: pointer;
     font-family: 'Bai Jamjuree', sans-serif; 
-    font-size: 21px;
-    background-color: #2ecc71;
+    font-size: 19px;
+    background-color: #27ae60;
     color: #fff;
     margin: auto;
     padding: 15px;
     margin-top: 15px;
     text-align: left;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+
 }
+
+
 
 #form-enigme{
     width: 75%
 }
-#import-button:active,#import-button:active, #export-button:active, 
-#bouton-sauver-projet:active, #charger-projet:active, #appliqueParametres:active,
-#import-rbk:active{
-    color:orange;
+
+.bouton:active{
+    color:#e67e22;
 }
+
+.bouton:hover{
+    color:#e74c3c;
+    background-color: #2ecc71;
+    -webkit-transition: background-color 0.5s ease-out;
+    -webkit-transition: color 0.25s ease-out;
+
+}
+
 
 .infos{
     margin: 25px auto;
     font-style: italic;
     margin-top: 30px;
+    margin-bottom: 30px;
     width: 75%;
     font-family: 'Bai Jamjuree', sans-serif; 
     font-size: 16px;
@@ -381,20 +498,22 @@ td.commentaire{
 }
 
 #appliqueParametres{
-    background-color: #2ecc71;
-    cursor: pointer;
+    /*background-color: #2ecc71;*/
+    /*cursor: pointer;*/
     /*padding: 5px;*/
-    color: #fff;
-    font-size: 20px;
-    width: 100%
+    /*color: #fff;*/
+    font-size: 30px;
+    width: 100%;
+    text-align: center;
 }
 
-#reinitialiseParametres{
-    background-color: #ff6666;
+#supprimerCookies{
+
+    background-color: #e74c3c;;
     cursor: pointer;
     /*padding: 5px;*/
     color: #fff;
-    font-size: 20px;
+    font-size: 15px;
     width: 100%
 }
 

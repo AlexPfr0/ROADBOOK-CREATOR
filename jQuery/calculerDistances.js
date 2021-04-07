@@ -5,7 +5,7 @@
 
     // Changer cette variable pour arrondir la distance (de 0 à 3)
 
-var calculerDistance = function(nbDecimales = 3){
+var CalculerDistance = function (nbDecimales = 3) {
     
 
 // Calcul de la distance intermédiare

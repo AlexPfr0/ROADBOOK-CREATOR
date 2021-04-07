@@ -17,7 +17,7 @@ function get_image($dossier) {
 
     foreach ($images_liste as $image) {
 
-        if (!is_dir($image)) {
+                if (is_file($dossier . $image)) {
             $html_liste .= '<img src="' . $dossier . $image . '" class="img-pan"  title="' . $image . '" />';
         }
     }
